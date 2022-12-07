@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: public
+    #cert-manager.io/cluster-issuer: "letsencrypt"
+    # We allow HTTP and HTTPS
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+  name: gitea-ingress
+  namespace: git
+spec:
+  rules:
+  - host: git.domain.placeholder
+    http:
+      paths:
+      - pathType: Prefix
+        path: /
+        backend:
+          service:
+            name: gitea-http
+            port: 
+              number: 3000
+  tls:
+  - hosts:
+    - git.domain.placeholder
+    #secretName: git-tls
