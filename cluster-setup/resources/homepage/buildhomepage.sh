@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# we build the image and tag it
-docker build -t shinojosa/kiab:0.8 .
+# Build tick tack toe and push it to the repository of microk8s
+docker build . -t shinojosa/k8deepdive
 
-# Pushit to dockerhub
-docker push shinojosa/kiab:0.8
+# we push the image into the cluster repository
+docker push shinojosa/k8deepdive
+
