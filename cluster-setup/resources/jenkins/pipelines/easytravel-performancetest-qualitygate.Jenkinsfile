@@ -103,6 +103,7 @@ node {
                 echo "Project.Stage.Service [${params.Project}.${params.Stage}.${params.Service}] already available in Keptn. No further action required!"
                 keptnMap.put('monitoring','dynatrace' )
                 keptnMap.put('shipyard','keptn/shipyard.yaml' )
+                // TODO FIX REPO
                 keptn.downloadFile("https://raw.githubusercontent.com/keptn-sandbox/keptn-in-a-box/release-0.9.2/resources/jenkins/pipelines/keptn_devlove/shipyard.yaml", 'keptn/shipyard.yaml')
                 // Initialize object so we can call the functions later with the values.
                 keptn.keptnInit keptnMap

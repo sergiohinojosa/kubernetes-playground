@@ -586,11 +586,11 @@ certmanagerEnable() {
   if [ "$certmanager_enable" = true ]; then
     printInfoSection "Installing ClusterIssuer with HTTP Letsencrypt for ($CERTMANAGER_EMAIL)"
 
-    #bashas "kubectl apply -f $K8S_PLAY_DIR/resources/ingress/clusterissuer.yaml"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-clusterissuer.sh $CERTMANAGER_EMAIL"
+    #bashas "kubectl apply -f $K8S_PLAY_DIR/cluster-setup/resources/ingress/clusterissuer.yaml"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-clusterissuer.sh $CERTMANAGER_EMAIL"
     waitForAllPods
     printInfo "Creating SSL Certificates with Let's encrypt for the exposed ingresses"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash add-ssl-certificates.sh"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash add-ssl-certificates.sh"
 
     printInfoSection "Let's Encrypt Process in kubectl for CertManager"
     printInfo " For observing the creation of the certificates: \n
@@ -606,7 +606,7 @@ certmanagerEnable() {
 }
 
 keptndemoDeployCartsloadgenerator() {
-  # https://github.com/sergiohinojosa/Kubernetes-Play/resources/cartsloadgenerator
+  # https://github.com/sergiohinojosa/Kubernetes-Play/cluster-setup/resources/cartsloadgenerator
   if [ "$keptndemo_cartsload" = true ]; then
     printInfoSection "Deploy Cartsload Generator"
     bashas "kubectl create deploy cartsloadgen --image=shinojosa/cartsloadgen:keptn"
@@ -630,7 +630,7 @@ keptnExamplesClone() {
 dynatraceSaveCredentials() {
   if [ "$dynatrace_savecredentials" = true ]; then
     printInfoSection "Save Dynatrace credentials"
-    bashas "cd $K8S_PLAY_DIR/resources/dynatrace/ ; bash save-credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$PAASTOKEN\""
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash save-credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$PAASTOKEN\""
   fi
 }
 
@@ -668,7 +668,7 @@ keptnInstall() {
       # Adding configuration for the IngressGW
       # TODO Unchanged
       #printInfoSection "Creating Public Gateway for Istio"
-      #bashas "cd $K8S_PLAY_DIR/resources/istio && kubectl apply -f public-gateway.yaml"
+      #bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/istio && kubectl apply -f public-gateway.yaml"
 
       # TODO Skipping configmap
       #printInfoSection "Configuring Istio for Keptn"
@@ -680,7 +680,7 @@ keptnInstall() {
     fi
 
     printInfoSection "Routing for the Keptn Services via Istio Ingress"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} api-keptn-ingress"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} api-keptn-ingress"
     waitForAllPods
 
     # We sleep for 5 seconds to give time the Ingress to be ready
@@ -698,23 +698,23 @@ keptnDeployHomepage() {
     printInfoSection "Deploying the Autonomous Cloud (dynamic) Teaser with Pipeline overview $TEASER_IMAGE"
     bashas "kubectl -n default create deploy homepage --image=${TEASER_IMAGE}"
     bashas "kubectl -n default expose deploy homepage --port=80 --type=NodePort"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} homepage"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} homepage"
   fi
 }
 
 jenkinsDeploy() {
   if [ "$jenkins_deploy" = true ]; then
     printInfoSection "Deploying Jenkins via Helm. This Jenkins is configured and managed 'as code'"
-    bashas "cd $K8S_PLAY_DIR/resources/jenkins && bash deploy-jenkins.sh ${DOMAIN}"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} jenkins"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/jenkins && bash deploy-jenkins.sh ${DOMAIN}"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} jenkins"
   fi
 }
 
 gitDeploy() {
   if [ "$git_deploy" = true ]; then
     printInfoSection "Deploying self-hosted GIT(ea) service via Helm."
-    bashas "cd $K8S_PLAY_DIR/resources/gitea && bash deploy-gitea.sh ${DOMAIN}"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} gitea"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/gitea && bash deploy-gitea.sh ${DOMAIN}"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} gitea"
   fi
 }
 
@@ -724,7 +724,7 @@ gitMigrate() {
     waitForAllPods git
     GIT_SERVER="http://git.$DOMAIN"
     waitForServersAvailability ${GIT_SERVER}
-    bashas "cd $K8S_PLAY_DIR/resources/gitea && bash update-git-keptn.sh ${DOMAIN}"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/gitea && bash update-git-keptn.sh ${DOMAIN}"
   fi
 }
 
@@ -738,7 +738,7 @@ dynatraceConfigureMonitoring() {
 
     # Deploy Operator as Help pages with containerized AG
     printInfo "Deploying the OneAgent Operator and containerized AG monitoring all events and Cluster Health"
-    bashas "cd $K8S_PLAY_DIR/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
 
     printInfo "Deploying the Dynatrace Service $KEPTN_DT_SERVICE_VERSION in Keptn via Helm"
     bashas "helm upgrade --install dynatrace-service -n keptn https://github.com/keptn-contrib/dynatrace-service/releases/download/$KEPTN_DT_SERVICE_VERSION/dynatrace-service-$KEPTN_DT_SERVICE_VERSION.tgz --set dynatraceService.config.keptnApiUrl=$KEPTN_ENDPOINT --set dynatraceService.config.keptnBridgeUrl=$KEPTN_BRIDGE_URL --set dynatraceService.config.generateTaggingRules=true --set dynatraceService.config.generateProblemNotifications=true --set dynatraceService.config.generateManagementZones=true --set dynatraceService.config.generateDashboards=true --set dynatraceService.config.generateMetricEvents=true"
@@ -760,10 +760,10 @@ keptnBridgeDisableLogin() {
 keptndemoUnleash() {
   if [ "$keptndemo_unleash" = true ]; then
     printInfoSection "Deploy Unleash-Server"
-    bashas "cd $KEPTN_EXAMPLES_DIR/unleash-server/ &&  bash $K8S_PLAY_DIR/resources/demo/deploy_unleashserver.sh"
+    bashas "cd $KEPTN_EXAMPLES_DIR/unleash-server/ &&  bash $K8S_PLAY_DIR/cluster-setup/resources/demo/deploy_unleashserver.sh"
 
     printInfoSection "Expose Unleash-Server"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} unleash"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} unleash"
   fi
 }
 
@@ -776,7 +776,7 @@ keptndemoUnleashConfigure() {
     waitForServersAvailability ${UNLEASH_SERVER}
 
     printInfoSection "Enable Feature Flags for Unleash and Configure Keptn for it"
-    bashas "cd $KEPTN_EXAMPLES_DIR/onboarding-carts/ &&  bash $K8S_PLAY_DIR/resources/demo/unleash_add_featureflags.sh ${UNLEASH_SERVER}"
+    bashas "cd $KEPTN_EXAMPLES_DIR/onboarding-carts/ &&  bash $K8S_PLAY_DIR/cluster-setup/resources/demo/unleash_add_featureflags.sh ${UNLEASH_SERVER}"
     printInfoSection "No load generation will be created for running the experiment"
     printInfoSection "You can trigger the experiment manually here: https://tutorials.keptn.sh/tutorials/keptn-full-tour-dynatrace-09/#27"
   fi
@@ -785,15 +785,15 @@ keptndemoUnleashConfigure() {
 exposeK8Services() {
   if [ "$expose_kubernetes_api" = true ]; then
     printInfoSection "Exposing the Kubernetes Cluster API"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} k8-api"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} k8-api"
   fi
   if [ "$expose_kubernetes_dashboard" = true ]; then
     printInfoSection "Exposing the Kubernetes Dashboard"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} k8-dashboard"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} k8-dashboard"
   fi
   if [ "$istio_install" = true ]; then
     printInfoSection "Exposing Istio Service Mesh as fallBack for nonmapped hosts (subdomains)"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} istio-ingress"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} istio-ingress"
   fi
 }
 
@@ -801,18 +801,18 @@ patchKubernetesDashboard() {
   if [ "$patch_kubernetes_dashboard" = true ]; then
     printInfoSection "Patching Kubernetes Dashboard, use only for learning and Workshops"
     echo "Skip Login in K8 Dashboard"
-    bashas "cd $K8S_PLAY_DIR/resources/misc && bash patch-kubernetes-dashboard.sh"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/misc && bash patch-kubernetes-dashboard.sh"
   fi
 }
 keptndemoCartsonboard() {
   if [ "$keptndemo_cartsonboard" = true ]; then
     printInfoSection "Keptn onboarding Carts"
 
-    bashas "cd $KEPTN_EXAMPLES_DIR/onboarding-carts/ && bash $K8S_PLAY_DIR/resources/demo/onboard_carts.sh && bash $K8S_PLAY_DIR/resources/demo/onboard_carts_qualitygates.sh"
-    bashas "cd $KEPTN_EXAMPLES_DIR/onboarding-carts/ && bash $K8S_PLAY_DIR/resources/demo/deploy_carts_0.sh"
+    bashas "cd $KEPTN_EXAMPLES_DIR/onboarding-carts/ && bash $K8S_PLAY_DIR/cluster-setup/resources/demo/onboard_carts.sh && bash $K8S_PLAY_DIR/cluster-setup/resources/demo/onboard_carts_qualitygates.sh"
+    bashas "cd $KEPTN_EXAMPLES_DIR/onboarding-carts/ && bash $K8S_PLAY_DIR/cluster-setup/resources/demo/deploy_carts_0.sh"
 
     printInfoSection "Keptn Exposing the Onboarded Carts Application"
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} sockshop"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} sockshop"
 
   fi
 }
@@ -821,11 +821,11 @@ devloveEasytravel() {
   if [ "$devlove_easytravel" = true ]; then
     printInfoSection "Why Devs Love Dynatrace Resources & Jenkins Configuration"
 
-    bashas "cd $K8S_PLAY_DIR/resources/jenkins && bash deploy-jenkins.sh ${DOMAIN}"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/jenkins && bash deploy-jenkins.sh ${DOMAIN}"
     # Create Ingress
-    bashas "cd $K8S_PLAY_DIR/resources/ingress && bash create-ingress.sh ${DOMAIN} jenkins"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/ingress && bash create-ingress.sh ${DOMAIN} jenkins"
     # Create Easytravel Project
-    bashas "cd $K8S_PLAY_DIR/resources/jenkins/pipelines/keptn_devlove/ && keptn create project easytravel --shipyard shipyard.yaml"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/jenkins/pipelines/keptn_devlove/ && keptn create project easytravel --shipyard shipyard.yaml"
   fi
 }
 
@@ -888,10 +888,10 @@ printInstalltime() {
 
   if [ "$git_deploy" = true ]; then
     printInfoSection "Git-Server Access"
-    bashas "bash $K8S_PLAY_DIR/resources/gitea/gitea-vars.sh ${DOMAIN}"
-    printInfo "ApiToken to be found on $K8S_PLAY_DIR/resources/gitea/keptn-token.json"
+    bashas "bash $K8S_PLAY_DIR/cluster-setup/resources/gitea/gitea-vars.sh ${DOMAIN}"
+    printInfo "ApiToken to be found on $K8S_PLAY_DIR/cluster-setup/resources/gitea/keptn-token.json"
     printInfo "For migrating keptn projects to your self-hosted git repository afterwards just execute the following function:"
-    printInfo "cd $K8S_PLAY_DIR/resources/gitea/ && source ./gitea-functions.sh; createKeptnRepoManually {project-name}"
+    printInfo "cd $K8S_PLAY_DIR/cluster-setup/resources/gitea/ && source ./gitea-functions.sh; createKeptnRepoManually {project-name}"
   fi
 
   if [ "$create_workshop_user" = true ]; then

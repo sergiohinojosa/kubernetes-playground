@@ -20,9 +20,7 @@ node {
 
     stage('Initialize Keptn') {
 
-        // TODO Optimize with if Project exists download otherwise not.
-        cloudautomation.downloadFile("https://raw.githubusercontent.com/keptn-sandbox/keptn-in-a-box/release-0.10.0/resources/jenkins/pipelines/keptn/shipyard-performance.yaml", 'shipyard.yaml')
-        cloudautomation.downloadFile("https://raw.githubusercontent.com/keptn-sandbox/keptn-in-a-box/release-0.10.0/resources/jenkins/pipelines/keptn/dynatrace/dynatrace.conf.yaml", 'dynatrace/dynatrace.conf.yaml')
+        // TODO FIX REPO ation.downloadFile("https://raw.githubusercontent.com/keptn-sandbox/keptn-in-a-box/release-0.10.0/resources/jenkins/pipelines/keptn/dynatrace/dynatrace.conf.yaml", 'dynatrace/dynatrace.conf.yaml')
         cloudautomation.downloadFile("https://raw.githubusercontent.com/keptn-sandbox/keptn-in-a-box/release-0.10.0/resources/jenkins/pipelines/keptn/slo_${params.SLI}.yaml", 'slo.yaml')
         cloudautomation.downloadFile("https://raw.githubusercontent.com/keptn-sandbox/keptn-in-a-box/release-0.10.0/resources/jenkins/pipelines/keptn/dynatrace/sli_${params.SLI}.yaml", 'sli.yaml')
         
