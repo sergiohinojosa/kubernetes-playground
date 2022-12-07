@@ -1,5 +1,5 @@
 #!/bin/bash
-# This file contains the functions for installing Keptn-in-a-Box.
+# This file contains the functions for installing Kubernetes-Play.
 # Each function contains a boolean flag so the installations
 # can be highly customized.
 
@@ -273,29 +273,29 @@ timestamp() {
 }
 
 printInfo() {
-  echo "[Keptn-In-A-Box|INFO] $(timestamp) |>->-> $1 <-<-<|"
+  echo "[Kubernetes-Play|INFO] $(timestamp) |>->-> $1 <-<-<|"
 }
 
 printInfoSection() {
-  echo "[Keptn-In-A-Box|INFO] $(timestamp) |$thickline"
-  echo "[Keptn-In-A-Box|INFO] $(timestamp) |$halfline $1 $halfline"
-  echo "[Keptn-In-A-Box|INFO] $(timestamp) |$thinline"
+  echo "[Kubernetes-Play|INFO] $(timestamp) |$thickline"
+  echo "[Kubernetes-Play|INFO] $(timestamp) |$halfline $1 $halfline"
+  echo "[Kubernetes-Play|INFO] $(timestamp) |$thinline"
 }
 
 printWarn() {
-  echo "[Keptn-In-A-Box|WARN] $(timestamp) |x-x-> $1 <-x-x|"
+  echo "[Kubernetes-Play|WARN] $(timestamp) |x-x-> $1 <-x-x|"
 }
 
 printError() {
-  echo "[Keptn-In-A-Box|ERROR] $(timestamp) |x-x-> $1 <-x-x|"
+  echo "[Kubernetes-Play|ERROR] $(timestamp) |x-x-> $1 <-x-x|"
 }
 
 validateSudo() {
   if [[ $EUID -ne 0 ]]; then
-    printError "Keptn-in-a-Box must be run with sudo rights. Exiting installation"
+    printError "Kubernetes-Play must be run with sudo rights. Exiting installation"
     exit 1
   fi
-  printInfo "Keptn-in-a-Box installing with sudo rights:ok"
+  printInfo "Kubernetes-Play installing with sudo rights:ok"
 }
 
 waitForAllPods() {
@@ -606,7 +606,7 @@ certmanagerEnable() {
 }
 
 keptndemoDeployCartsloadgenerator() {
-  # https://github.com/sergiohinojosa/keptn-in-a-box/resources/cartsloadgenerator
+  # https://github.com/sergiohinojosa/Kubernetes-Play/resources/cartsloadgenerator
   if [ "$keptndemo_cartsload" = true ]; then
     printInfoSection "Deploy Cartsload Generator"
     bashas "kubectl create deploy cartsloadgen --image=shinojosa/cartsloadgen:keptn"
@@ -615,7 +615,7 @@ keptndemoDeployCartsloadgenerator() {
 
 resourcesClone() {
   if [ "$resources_clone" = true ]; then
-    printInfoSection "Clone Keptn-in-a-Box Resources in $K8S_PLAY_DIR"
+    printInfoSection "Clone Kubernetes-Play Resources in $K8S_PLAY_DIR"
     bashas "git clone --branch $PLAY_RELEASE $K8S_PLAY_REPO $K8S_PLAY_DIR --single-branch"
   fi
 }
@@ -995,5 +995,5 @@ doInstallation() {
   printInstalltime
 }
 
-# When the functions are loaded in the Keptn-in-a-box Shell this message will be printed out.
-printInfo "Keptn-in-a-Box installation functions loaded in the current shell"
+# When the functions are loaded in the Kubernetes-Play Shell this message will be printed out.
+printInfo "Kubernetes-Play installation functions loaded in the current shell"
