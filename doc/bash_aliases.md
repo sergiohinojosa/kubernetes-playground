@@ -1,4 +1,6 @@
-# Bash and Kubectl Pro CLI aliases in .bash_aliases for the users to navigate in the terminal like butter
+# .bash_aliases 
+
+### Bash and Kubectl Pro CLI aliases in .bash_aliases for the users to navigate in the terminal like butter
 
 ```bash
 # Alias for ease of use of the CLI
