@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: mywebserver-ingress
+  namespace: default
+spec:
+  rules:
+  - host: mywebserver.domain.placeholder
+    http:
+      paths:
+      - backend:
+          serviceName: mywebserver
+          servicePort: 80
+        path: /

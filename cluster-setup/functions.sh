@@ -55,6 +55,7 @@ verbose_mode=false
 update_ubuntu=false
 docker_install=false
 k9s_install=false
+webshell_install=false
 microk8s_install=false
 setup_proaliases=false
 enable_k8dashboard=false
@@ -79,7 +80,7 @@ jenkins_deploy=false
 devlove_easytravel=false
 
 keptn_bridge_disable_login=false
-keptndeploy_homepage=false
+deploy_homepage=false
 keptndemo_cartsload=false
 keptndemo_unleash=false
 keptndemo_unleash_configure=false
@@ -119,7 +120,7 @@ installationBundleDemo() {
   dynatrace_savecredentials=true
   dynatrace_configure_monitoring=true
 
-  keptndeploy_homepage=true
+  deploy_homepage=true
   keptndemo_cartsload=true
   keptndemo_unleash=true
   keptndemo_unleash_configure=true
@@ -169,7 +170,7 @@ installationBundleDevLove() {
   dynatrace_savecredentials=true
   dynatrace_configure_monitoring=true
 
-  keptndeploy_homepage=true
+  deploy_homepage=true
 
   keptndemo_cartsload=false
   keptndemo_unleash=false
@@ -223,7 +224,7 @@ installationBundleKeptnOnly() {
   expose_kubernetes_api=true
   expose_kubernetes_dashboard=true
 
-  keptndeploy_homepage=true
+  deploy_homepage=true
 
   selected_bundle="installationBundleKeptnOnly"
 }
@@ -443,6 +444,12 @@ dockerInstall() {
 k9sInstall() {
   if [ "$k9s_install" = true ]; then
     printInfoSection "Installing K9s"
+    bashas "curl -sS https://webi.sh/k9s | sh"
+  fi
+}
+webshellInstall() {
+  if [ "$webshell_install" = true ]; then
+    printInfoSection "Installing Webshell"
     bashas "curl -sS https://webi.sh/k9s | sh"
   fi
 }
@@ -693,8 +700,8 @@ keptnInstall() {
   fi
 }
 
-keptnDeployHomepage() {
-  if [ "$keptndeploy_homepage" = true ]; then
+deployHomepage() {
+  if [ "$deploy_homepage" = true ]; then
     printInfoSection "Deploying the Autonomous Cloud (dynamic) Teaser with Pipeline overview $TEASER_IMAGE"
     bashas "kubectl -n default create deploy homepage --image=${TEASER_IMAGE}"
     bashas "kubectl -n default expose deploy homepage --port=80 --type=NodePort"
@@ -907,7 +914,7 @@ printInstalltime() {
 
 printFlags() {
   printInfoSection "Function Flags values"
-  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,microk8s_install,setup_proaliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_savecredentials,dynatrace_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,keptndeploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel}; do
+  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_proaliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_savecredentials,dynatrace_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel}; do
     echo "$i = ${!i}"
   done
 }
@@ -969,8 +976,9 @@ doInstallation() {
   exposeK8Services
   patchKubernetesDashboard
 
+  deployHomepage
+  
   keptnInstall
-  keptnDeployHomepage
 
   keptndemoUnleash
 
