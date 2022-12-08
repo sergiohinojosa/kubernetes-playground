@@ -450,7 +450,7 @@ k9sInstall() {
 webshellInstall() {
   if [ "$webshell_install" = true ]; then
     printInfoSection "Installing Webshell"
-    bashas "curl -sS https://webi.sh/k9s | sh"
+    bashas "cd $K8S_PLAY_DIR/apps/webshell && bash deploy-webshell.sh $DOMAIN"
   fi
 }
 
