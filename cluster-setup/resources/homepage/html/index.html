@@ -899,6 +899,10 @@
               <a style="color: aqua;"
                 id="hostnamessh"></li>
               </ul>
+              <li>IP </br>
+              <a style="color: aqua;"
+                id="ip"></li>
+              </ul>
           </div>
 
           
@@ -1013,12 +1017,16 @@
 
         var hostname = location.hostname;
         var protocol = location.protocol;
+        var ip = hostname;
+        //We replace all dots and remove the magic domain
+        ip = ip.replace('-', '.').replace('-', '.').replace('-', '.').replace('-', '.').replace('.nip.io', '');
 
         replaceInE("hostname", hostname);
         replaceInE("hostnamessh", "ssh k8splay@" + hostname);
+        replaceInE("ip", ip);
         addLink("k8api", "api.kubernetes." + hostname);
         addLink("kubernetes", "kubernetes." + hostname);
-        addLink("webshell", "webshell." + hostname + "/?" + hostname + "/22/");
+        addLink("webshell", "webshell." + hostname + "/?" + ip + "/22/k8splay");
         
         //addLink("jenkins", "jenkins." + hostname);
         //addLink("unleash", "unleash.unleash-dev." + hostname);
