@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="preconnect" href="https://dt-cdn.net/">
   <meta name="robots" content="noindex, follow">
-  <title>Keptn in a Box 📦</title>
+  <title>Kubernetes Playground 🕸 🛝</title>
   <link rel="icon" type="image/x-icon" href="https://assets.dynatrace.com/groundhog/v6.1.2/assets/images/favicon.ico">
 
   <script type="text/javascript">
@@ -851,71 +851,117 @@
     <div class="background" style="transform: translate(-11.3px, 20px) scale(1.1);"></div>
 
     <nav class="nav">
-      <a class="nav__brand" href="https://www.dynatrace.com/">
+      <a class="nav__brand" target="_blank" href="https://www.dynatrace.com/">
         <img class="js-disable-lazy" src="https://dt-cdn.net/images/dynatrace-logo-rgb-cnh-800x142px-8ad53ac283.svg"
           alt="Software Intelligence for the Enterprise Cloud" width="150">
       </a>
 
       <div class="nav__list">
-        <a class="nav__button" href="https://github.com/sergiohinojosa/kubernetes-playground"><img alt="Kubernetes Playground"
-            src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"></a>
+        <a class="nav__button" target="_blank" href="https://github.com/sergiohinojosa/kubernetes-playground"><img
+            alt="Kubernetes Playground" src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png"
+            width="30"  style="color:cornflowerblue;font-size: medium;" >documentation</a>
       </div>
     </nav>
 
     <div class="content">
       <div class="content__left">
-        <h2 style="color:cornflowerblue;">Welcome to your <img alt="Keptn"
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png" width="100"> Playground</h2>
+        <h2 style="color:cornflowerblue;">Welcome to your Kubernetes <img alt="Keptn"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png"
+            width="80"> Playground</h2>
 
-        <p style="color:white;font-size: larger;">Accelerate IT transformation to NoOps, innovate faster and
+        <p style="color:white;font-size: larger;">🥼 Spend more time innovating and less time configuring!</p>
+        <p style="color:rgb(187, 227, 252);font-size: medium;">
+          Accelerate IT transformation to NoOps, innovate faster and
           deliver better business
           outcomes.</p>
-        <p style="color:cornflowerblue;">Welcome to your single node Kubernetes Cluster <a
-            style="color: aqua;" id="hostname"></a>
+        <p style="color:cornflowerblue;">Your single node Kubernetes Cluster is accesible <a style="color: aqua;"
+            id="hostname"></a>
         </p>
-        <div style="font-style: italic ;">Here is a list of links for accessing the installed components:</div>
+        <div style="font-style: italic ;">Here is a list of links of the core components installed in your k8s cluster:
+        </div>
         <div class="links">
 
           <div>
             <ul>
               <div style="font-weight: bold;">🕸Kubernetes</div>
-              <li><a id="k8api">🌐API</a></li>
-              <li><a id="kubernetes"> 📊Dashboard</a></li>
-            </ul>
+              <li><a id="k8api">🌐 API</a></li>
+              <li><a id="kubernetes"> 📊 Dashboard</a></li>
             </ul>
           </div>
           <div>
             <ul>
-              <div style="font-weight: bold;">🖥 WebShell</div>
-              <li><a id="keptnapi">🌐API </a></li>
-              <li><a id="bridge">Bridge </a></li>
-            </ul>
-            </ul>
+              <div style="font-weight: bold;"> 💻 Shell</div>
+              <li><a id="webshell">💻 WebShell</a></li>
+              <li>you can also access natively via SSH like: </br>
+              <a style="color: aqua;"
+                id="hostnamessh"></li>
+              </ul>
           </div>
+
+          
+          <!-- GITEA CICD
           <div>
             <ul>
               <div style="font-weight: bold;"> 💾Gitea</div>
-              <li><a id="gitserver">🌐API </a></li>
+              <li><a id="gitserver">🌐 API </a></li>
               <li><a id="gitrepos"> ⋔ Repositories</a></li>
             </ul>
+          </div>
+          <div>
+            <ul>
+              <div style="font-weight: bold;">🚦CI/CD </div>
+              <li><a id="jenkins">Jenkins </a></li>
+              <li><a id="unleash">Unleash</a></li>
             </ul>
           </div>
+        -->
+
+
         </div>
-        </br>
-        </br>
+
+        <!-- Other components
+          <div>
+            <p>The installed components in this cluster can be (but not limited to):</p>
+            <div class="links">
+              <div class="linksAa__left">
+                <a target="_blank" href="https://helm.sh">Helm</a>
+                <a target="_blank" href="https://istio.io">Istio</a>
+                <a target="_blank" href="https://Microk8s.io">Microk8s</a>
+                <a target="_blank" href="https://keptn.sh">Keptn</a>
+                <a target="_blank" href="https://www.jenkins.io">Jenkins</a>
+                <a target="_blank" href="https://unleash.github.io/">Unleash</a>
+              </div>
+              <div class="linksAA__right">
+                <a target="_blank"
+                href="https://www.dynatrace.com/support/help/technology-support/cloud-platforms/kubernetes/oneagent-with-helm/">OneAgent
+                Operator</a>
+                <a target="_blank"
+                href="https://www.dynatrace.com/support/help/technology-support/cloud-platforms/kubernetes/monitoring/connect-kubernetes-clusters-to-dynatrace/">Kubernetes
+                Cluster Monitoring</a>
+              </div>
+            </div>
+          </div>
+        -->
+       </br>
+
         <div>
           <ul>
-            <div style="font-weight: bold;"> 🛒 Apps access via Ingress</div>
-            <li><a id="pipeline"> .....</a></li>
+            <div style="font-weight: bold;"> Core components installed in your cluster:</div>
             <li>
-              <div>Carts stages:
-                <a style="font-size: small;" id="cartsdev">development </a><a>|</a>
-                <a style="font-size: small;" id="cartsstage">staging </a><a>|</a>
-                <a style="font-size: small;" id="cartsprod">production </a>
+              <div style="font-size: small;">
+                <a target="_blank" href="https://helm.sh"> Helm </a><a> | </a>
+                <a target="_blank" href="https://istio.io"> Istio </a><a> | </a>
+                <a target="_blank" href="https://Microk8s.io"> Microk8s </a><a> | </a>
+                <a target="_blank" href="https://k9scli.io"> K9sCLI </a><a> | </a>
+                <a target="_blank" href="https://www.docker.com"> Docker </a><a> | </a>
+                <a target="_blank" href="https://kubernetes.io/docs/reference/kubectl/"> kubectl </a><a> | </a>
+                <a target="_blank" href="https://kubernetes.io/docs/reference/kubectl/"> bash alias </a><a> | </a>
+                
               </div>
             </li>
           </ul>
         </div>
+
         <!--  ACM Pic
           <img alt="Cloud" width="800px" sizes="((min-width: 300px) and (not (media: print))) 50vw, 100vw"
           data-action="zoom" data-src="https://dt-cdn.net/images/platform-wheel-1236-9b2e70f8d1.png"
@@ -963,6 +1009,7 @@
           var e = document.getElementById(elementId);
           e.innerHTML = text;
         }
+
         function addLink(elementId, link) {
           var e = document.getElementById(elementId);
           //e.innerHTML = link;
@@ -974,32 +1021,126 @@
         var protocol = location.protocol;
 
         replaceInE("hostname", hostname);
-        addLink("pipeline", hostname + "/pipeline");
-        addLink("jenkins", "jenkins." + hostname);
+        replaceInE("hostnamessh", "ssh k8splay@" + hostname);
         addLink("k8api", "api.kubernetes." + hostname);
         addLink("kubernetes", "kubernetes." + hostname);
-        addLink("keptnapi", "keptn." + hostname + "/api/swagger-ui/");
-        addLink("bridge", "keptn." + hostname + "/bridge");
-        addLink("gitserver", "git." + hostname + "/api/swagger/");
-        addLink("gitrepos", "git." + hostname + "/explore/repos");
-        addLink("cartsdev", "carts.sockshop-dev." + hostname);
-        addLink("cartsstage", "carts.sockshop-staging." + hostname);
-        addLink("cartsprod", "carts.sockshop-production." + hostname);
-        addLink("unleash", "unleash.unleash-dev." + hostname);
+        addLink("webshell", "webshell." + hostname + "/?" + hostname + "/22/");
+        
+        //addLink("jenkins", "jenkins." + hostname);
+        //addLink("unleash", "unleash.unleash-dev." + hostname);
+        //addLink("keptnapi", "keptn." + hostname + "/api/swagger-ui/");
+        //addLink("bridge", "keptn." + hostname + "/bridge");
+        
+        //addLink("gitserver", "git." + hostname + "/api/swagger/");
+        //addLink("gitrepos", "git." + hostname + "/explore/repos");
+        
+        //addLink("pipeline", hostname + "/pipeline");
+        //addLink("cartsdev", "carts.sockshop-dev." + hostname);
+        //addLink("cartsstage", "carts.sockshop-staging." + hostname);
+        //addLink("cartsprod", "carts.sockshop-production." + hostname);
 
       </script>
-
+      <!-- 
+      -->
       <div class="content__right">
-        <div id="particles-js"></div>
+
+        <div class="foreground foreground--desktop" style="transform: translate(-22.6px, 40px);">
+          <!-- Base -->
+          <div id="particles-js"></div>
+
+        </div>
       </div>
-    </div>
     </div>
   </div>
 
-  <!-- particles.js container -->
- 
 
-  <!-- scripts -->
+  <script>
+    var nav = document.querySelector('.nav');
+    var navBrand = document.querySelector('.nav__brand');
+    var navList = document.querySelector('.nav__list');
+
+    var mouseX = 0;
+    var mouseY = 0;
+    var backgroundX = backgroundY = foregroundX = foregroundY = 0;
+    var friction = 1 / 50; // Parallex effect: "snappyness"
+
+    function addEventListeners() {
+      document.body.addEventListener('mousemove', function (e) {
+        mouseX = Math.max(-100, Math.min(100, window.innerWidth / 2 - e.clientX)) / 5; // Parallex effect: dimensions of movement
+        mouseY = Math.max(-100, Math.min(100, window.innerHeight / 2 - e.clientY)) / 5; // Parallex effect: dimensions of movement
+      });
+
+      document.querySelector('.searchForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        window.location.href = 'https://search.dynatrace.com/search?q=' + document.getElementById('searchForm__input').value + '&p=1&f=Category%5B%22All%20categories%22%5D*';
+      });
+
+      document.addEventListener('scroll', () => {
+        scroll(window.pageYOffset);
+      }, 200);
+    }
+
+    function moveBackground() {
+      foregroundX += (mouseX * 2 - foregroundX) * (friction * 2);
+      foregroundY += (mouseY * 2 - foregroundY) * (friction * 2);
+
+      backgroundX += (mouseX - backgroundX) * (friction);
+      backgroundY += (mouseY - backgroundY) * (friction);
+
+      document.querySelector('.foreground').style = 'transform: translate(' + foregroundX + 'px, ' + foregroundY + 'px)';
+      document.querySelector('.background').style = 'transform: translate(' + backgroundX + 'px, ' + backgroundY + 'px) scale(1.1)';
+      window.requestAnimationFrame(moveBackground);
+    }
+
+    function scroll(scrollPosition) {
+      if (scrollPosition >= 80) {
+        if (nav && !nav.classList.contains('nav--slim')) {
+          nav.classList.add('nav--slim');
+        }
+
+        if (navBrand && !navBrand.classList.contains('nav__brand--slim')) {
+          navBrand.classList.add('nav__brand--slim');
+        }
+
+        if (navList && !navList.classList.contains('nav__list--slim')) {
+          navList.classList.add('nav__list--slim');
+        }
+      } else {
+        if (nav && nav.classList.contains('nav--slim')) {
+          nav.classList.remove('nav--slim');
+        }
+
+        if (navBrand && navBrand.classList.contains('nav__brand--slim')) {
+          navBrand.classList.remove('nav__brand--slim');
+        }
+
+        if (navList && navList.classList.contains('nav__list--slim')) {
+          navList.classList.remove('nav__list--slim');
+        }
+      }
+    };
+
+    function addStyles(s) {
+      var a = document.createElement('style');
+      a.innerHTML = s;
+      var sc = document.getElementsByTagName('script')[0];
+      sc.parentNode.insertBefore(a, sc);
+    }
+
+    try {
+      var s = window.localStorage.getItem('fcache');
+      if (s !== null) {
+        addStyles(s);
+      }
+    } catch (e) {
+      // Nothing to catch
+    }
+
+    addEventListeners();
+    moveBackground();
+  </script>
+
+
   <script src="js/particles.min.js"></script>
   <script src="js/app.js"></script>
   <!-- stats.js -->
