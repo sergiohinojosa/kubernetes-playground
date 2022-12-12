@@ -6,11 +6,11 @@ if [[ $# -eq 3 ]]; then
     readCredsFromFile
     DT_TENANT=$1
     DT_API_TOKEN=$2
-    DT_PAAS_TOKEN=$3
+    DT_INGEST_TOKEN=$3
     echo "Saving the credentials file with following arguments supplied:"
     echo "Dynatrace Tenant: $DT_TENANT"
     echo "Dynatrace API Token: $DT_API_TOKEN"
-    echo "Dynatrace PaaS Token: $DT_PAAS_TOKEN"
+    echo "Dynatrace PaaS Token: $DT_INGEST_TOKEN"
     echo y | writeCreadsToFile
 elif [[ $1 == "show" ]]; then
     readCredsFromFile

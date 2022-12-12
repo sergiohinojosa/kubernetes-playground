@@ -405,18 +405,16 @@ updateUbuntu() {
 dynatracePrintValidateCredentials() {
   printInfoSection "Printing Dynatrace Credentials"
   if [ -n "${TENANT}" ]; then
-    printInfo "Shuffle the variables for name convention with Keptn & Dynatrace"
-    PROTOCOL="https://"
-    DT_TENANT=${TENANT#"$PROTOCOL"}
-    printInfo "Cleaned tenant=$DT_TENANT"
+    DT_TENANT=$TENANT
     DT_API_TOKEN=$APITOKEN
-    DT_PAAS_TOKEN=$PAASTOKEN
+    DT_INGEST_TOKEN=$INGESTTOKEN
     printInfo "-------------------------------"
     printInfo "Dynatrace Tenant: $DT_TENANT"
     printInfo "Dynatrace API Token: $DT_API_TOKEN"
-    printInfo "Dynatrace PaaS Token: $DT_PAAS_TOKEN"
+    printInfo "Dynatrace Ingest Token: $DT_INGEST_TOKEN"
+    dynatrace_savecredentials=true
   else
-    printInfoSection "Dynatrace Variables not set, Dynatrace wont be installed"
+    printInfoSection "Dynatrace Variables not set, Dynatrace Operator wont be deployed"
     dynatrace_savecredentials=false
     dynatrace_configure_monitoring=false
   fi
@@ -637,7 +635,7 @@ keptnExamplesClone() {
 dynatraceSaveCredentials() {
   if [ "$dynatrace_savecredentials" = true ]; then
     printInfoSection "Save Dynatrace credentials"
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash save-credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$PAASTOKEN\""
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash save-credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
   fi
 }
 
@@ -735,8 +733,23 @@ gitMigrate() {
   fi
 }
 
+
+dynatraceDeployOperator() {
+if [ "$dynatrace_deploy_operator" = true ]; then
+    printInfoSection "Deploying the Dynatrace Operator with CloudNative FullStack Monitoring for $DT_TENANT"
+
+    # Deploy Operator 
+    printInfo "Deploying the Dynatrace Operator and CSI Driver"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
+
+    waitForAllPods
+  fi
+}
+
+
 dynatraceConfigureMonitoring() {
   #TODO Change monitoring with latest Operator
+  # Deprecated. see dynatraceDeployOperator
   if [ "$dynatrace_configure_monitoring" = true ]; then
     printInfoSection "Installing and configuring Dynatrace OneAgent on the Cluster for $DT_TENANT"
 

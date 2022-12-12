@@ -8,7 +8,7 @@ readCredsFromFile
 echo "Configure Kubernetes Monitoring with:"
 echo "Dynatrace Tenant: $DT_TENANT"
 echo "Dynatrace API Token: $DT_API_TOKEN"
-echo "Dynatrace PaaS Token: $DT_PAAS_TOKEN"
+echo "Dynatrace IngestToken Token: $DT_PAAS_TOKEN"
 
 configureAccountAndGetCredentials(){
     kubectl apply -f https://www.dynatrace.com/support/help/codefiles/kubernetes/kubernetes-monitoring-service-account.yaml
