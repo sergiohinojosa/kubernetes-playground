@@ -44,6 +44,10 @@
       vertical-align: baseline;
     }
 
+    ul {
+      list-style-type: none;
+    }
+
     @media screen and (min-width: 992px) {
 
       html,
@@ -242,69 +246,99 @@
     }
 
     .content {
-      flex-direction: column-reverse;
+      flex-direction: row;
       align-items: center;
       justify-content: center;
-      width: 90%;
+      width: calc(100% - 80px);
       height: calc(100% - 80px);
       margin: auto;
     }
 
-    @media screen and (min-width: 992px) {
-      .content {
-        flex-direction: row;
-      }
-    }
-
-    @media screen and (min-width: 1200px) {
-      .content {
-        width: 80%;
-      }
-    }
-
     .content__left {
-      flex-basis: 100%;
-      max-width: 100%;
-      margin-top: 64px;
-      margin-bottom: 64px;
+      align-items: center;
+      flex-basis: 35%;
+      max-width: 40%;
+      margin-top: 0;
     }
 
     .content__right {
-      width: 100%;
-      max-width: 580px;
-      margin-top: 128px;
+      background-color: rgb(255, 255, 255, 0.4);
+      flex-grow: 1; 
+      flex-basis: 65%;
+      max-width: 60%;
+      min-width: 500px;
+      height: calc(100% - 80px);
+      margin: 1; 
+      padding: 1;
+      font-size: x-small;
     }
-
-    @media screen and (min-width: 992px) {
-
-      .content__left,
-      .content__right {
-        margin-bottom: 0;
-      }
-
-      .content__left {
-        flex-basis: 42%;
-        max-width: 42%;
-        margin-top: 0;
-      }
-
-      .content__right {
-        flex-basis: 58%;
-        max-width: 58%;
-      }
+    
+    /*
+    .content__left {
+      border: none; 
+      margin: 0; 
+      padding: 0;
+      
     }
+    .content__right {
+      flex-grow: 1; 
+      border: none; 
+      margin: 0; 
+      padding: 0;
+        }
 
-    @media screen and (min-width: 1200px) {
 
-      .content__left,
-      .content__right {
-        flex-basis: 50%;
-        max-width: 50%;
-      }
-    }
+    flex-direction: row;
+    
 
-    .links {
-      display: flex;
+    //flex-basis: 80%;
+    //max-width: 100%;
+    //margin-top: 64px;
+    //margin-bottom: 64px;
+    
+    //max-width: 580px;
+    //margin-top: 128px;
+
+    body, html {width: 100%; height: 100%; margin: 0; padding: 0}
+.row-container {display: flex; width: 100%; height: 100%; flex-direction: column; background-color: blue; overflow: hidden;}
+.first-row {background-color: lime; }
+.second-row { flex-grow: 1; border: none; margin: 0; padding: 0; }
+
+
+
+@media screen and (min-width: 992px) {
+  
+  .content__left,
+  .content__right {
+    margin-bottom: 0;
+  }
+  
+  .content__left {
+    flex-basis: 30%;
+    max-width: 30%;
+    margin-top: 0;
+  }
+  
+  .content__right {
+    flex-basis: 70%;
+    max-width: 70%;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  
+  .content__left,
+  .content__right {
+    flex-basis: 50%;
+    max-width: 50%;
+  }
+}
+
+
+*/
+
+.links {
+  display: flex;
       flex-direction: column;
       max-width: 550px;
     }
@@ -865,43 +899,40 @@
 
     <div class="content">
       <div class="content__left">
-        <h2 style="color:cornflowerblue;">Welcome to your Kubernetes <img
+        <h2 style="color:#3970e4;"><img
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png"
-            width="80"> Playground</h2>
-        <p style="color:white;font-size: larger;">🥼 Spend more time innovating and less time configuring!</p>
+            width="25"> Welcome to your Kubernetes Playground <img
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/Kubernetes_logo_without_workmark.svg/1200px-Kubernetes_logo_without_workmark.svg.png"
+            width="25"> </h2>
+        <p style="color:steelblue;font-size: larger;">🥼 Spend more time innovating and less time configuring!</p>
         <p>
 
         
-        <div style="color:rgb(187, 227, 252);font-size: medium;">
+        <div style="color:rgb(114, 181, 236);font-size: medium;">
           Accelerate IT transformation to NoOps, innovate faster and
           deliver better business
           outcomes.</div>
-          <div style="color:cornflowerblue;">Your single node Kubernetes Cluster is accesible <a style="color: aqua;"
+          <div style="color:rgb(114, 181, 236);">Your single node Kubernetes Cluster is accesible via this domain <a style="color: steelblue;"
             id="hostname"></a></div>
         </p>
         
-        <div style="font-style: italic ;">Here is a list of links of the core components installed in your k8s cluster:
+        <div style="color:rgb(114, 181, 236); italic;">Here is a list of links of the core components installed in your k8s cluster:
         </div>
         <div class="links">
 
           <div>
             <ul>
-              <div style="font-weight: bold;">🕸Kubernetes</div>
-              <li><a id="k8api">🌐 API</a></li>
-              <li><a id="kubernetes"> 📊 Dashboard</a></li>
+              <div style="color:rgb(136, 172, 239); font-weight: bold;">🕸Kubernetes</div>
+              <li><a id="k8api">🌐API</a></li>
+              <li><a id="kubernetes">📊Dashboard</a></li>
             </ul>
           </div>
           <div>
             <ul>
-              <div style="font-weight: bold;"> 💻 Shell</div>
-              <li><a id="webshell">💻 WebShell</a></li>
-              <li>you can also access natively via SSH like: </br>
-              <a style="color: aqua;"
-                id="hostnamessh"></li>
-              </ul>
-              <li>IP </br>
-              <a style="color: aqua;"
-                id="ip"></li>
+              <div style="color:cornflowerblue; font-weight: bold;"> 💻 Shell</div>
+              <li style="color:rgb(114, 181, 236);">Use the integrated shell on the right 👉</br> or open it in a new tab by <a id="webshell"> 💻 clicking here </a>
+              <li style="color:rgb(114, 181, 236);">you can also access natively via SSH like: </br>
+              <a id="hostnamessh"></a></li>
               </ul>
           </div>
 
@@ -953,29 +984,30 @@
 
         <div>
           <ul>
-            <div style="font-weight: bold;"> Core components installed in your cluster:</div>
-            <li>
+            <div style="color:cornflowerblue; font-weight: bold;"> Core components installed in your cluster:</div>
+            <div>
               <div style="font-size: small;">
-                <a target="_blank" href="https://helm.sh"> Helm </a><a> | </a>
-                <a target="_blank" href="https://istio.io"> Istio </a><a> | </a>
-                <a target="_blank" href="https://Microk8s.io"> Microk8s </a><a> | </a>
-                <a target="_blank" href="https://k9scli.io"> K9sCLI </a><a> | </a>
-                <a target="_blank" href="https://www.docker.com"> Docker </a><a> | </a>
-                <a target="_blank" href="https://kubernetes.io/docs/reference/kubectl/"> kubectl </a><a> | </a>
-                <a target="_blank" href="https://github.com/sergiohinojosa/kubernetes-playground/blob/main/doc/bash_aliases.md"> .bash_aliases </a><a> | </a>
+                <a target="_blank" href="https://helm.sh"> Helm </a><a> - </a>
+                <a target="_blank" href="https://istio.io"> Istio </a><a> - </a>
+                <a target="_blank" href="https://Microk8s.io"> Microk8s </a><a> - </a>
+                <a target="_blank" href="https://k9scli.io"> K9sCLI </a><a> - </a>
+                <a target="_blank" href="https://www.docker.com"> Docker </a><a> - </a>
+                <a target="_blank" href="https://git-scm.com/"> git </a><a> - </a>
+                <a target="_blank" href="https://kubernetes.io/docs/reference/kubectl/"> kubectl </a><a> - </a>
+                <a target="_blank" href="https://github.com/sergiohinojosa/kubernetes-playground/blob/main/doc/bash_aliases.md"> .bash_aliases </a>
               </div>
-            </li>
+            </div>
           </ul>
         </div>
         <div>
           <ul>
-            <div style="font-weight: bold;"> Other Components available: </div>
-            <li>
+            <div style="color:cornflowerblue; font-weight: bold;"> Other Components available: </div>
+            <div>
               <div style="font-size: small;">
-                <a target="_blank" href="https://microk8s.io/docs/registry-built-in"> Built-In Image Registry </a><a> | </a>
+                <a target="_blank" href="https://microk8s.io/docs/registry-built-in"> Built-In Image Registry </a><a> - </a>
                 <a target="_blank" href="https://cert-manager.io/"> Cert-Manager </a>
               </div>
-            </li>
+            </div>
           </ul>
         </div>
 
@@ -983,78 +1015,85 @@
 
         <div>
           <ul>
-            <div style="font-weight: bold;"> Apps that can be activated: </div>
-            <li>
+            <div style="color:cornflowerblue; font-weight: bold;"> App repository for this cluster</div>
+            <div>
               <div style="font-size: small;">
                 <a target="_blank" href="https://microk8s.io/docs/registry-built-in"> BookInfo </a><a> | </a>
-                <a target="_blank" href="https://cert-manager.io/"> SimplCommerce </a><a> | </a>
+                <a target="_blank" href="https://cert-manager.io/"> SimplCommerce </a><a> - </a>
               </div>
-            </li>
+            </div>
           </ul>
         </div>
 
         <br>
         <br>
-        <p style="font-style:italic;font-size: medium;">"Successful DevOps teams embark on the path to NoOps by
-          automating CI/CD pipelines and cloud operations,
-          enabled by the Dynatrace software intelligence platform with explainable AI at the core to identify anomalies
-          with precise root-cause and trigger automatic self-healing actions."</p>
+        <!--
 
+          <p style="font-style:italic;font-size: medium;">"Successful DevOps teams embark on the path to NoOps by
+            automating CI/CD pipelines and cloud operations,
+            enabled by the Dynatrace software intelligence platform with explainable AI at the core to identify anomalies
+            with precise root-cause and trigger automatic self-healing actions."</p>
+          -->
       </div>
-      <script type="text/javascript">
 
-        function replaceInE(elementId, text) {
-          var e = document.getElementById(elementId);
-          e.innerHTML = text;
-        }
+      <!-- Content Right -->
 
-        function addLink(elementId, link) {
-          var e = document.getElementById(elementId);
-          //e.innerHTML = link;
-          e.setAttribute('href', protocol + '//' + link);
-          e.setAttribute('target', "_blank");
-        }
+      <div id="content__right" class="content__right">
 
-        var hostname = location.hostname;
-        var protocol = location.protocol;
-        var ip = hostname;
-        //We replace all dots and remove the magic domain
-        ip = ip.replace('-', '.').replace('-', '.').replace('-', '.').replace('-', '.').replace('.nip.io', '');
-
-        replaceInE("hostname", hostname);
-        replaceInE("hostnamessh", "ssh k8splay@" + hostname);
-        replaceInE("ip", ip);
-        addLink("k8api", "api.kubernetes." + hostname);
-        addLink("kubernetes", "kubernetes." + hostname);
-        addLink("webshell", "webshell." + hostname + "/?" + ip + "/22/k8splay");
-        
-        //addLink("jenkins", "jenkins." + hostname);
-        //addLink("unleash", "unleash.unleash-dev." + hostname);
-        //addLink("keptnapi", "keptn." + hostname + "/api/swagger-ui/");
-        //addLink("bridge", "keptn." + hostname + "/bridge");
-        
-        //addLink("gitserver", "git." + hostname + "/api/swagger/");
-        //addLink("gitrepos", "git." + hostname + "/explore/repos");
-        
-        //addLink("pipeline", hostname + "/pipeline");
-        //addLink("cartsdev", "carts.sockshop-dev." + hostname);
-        //addLink("cartsstage", "carts.sockshop-staging." + hostname);
-        //addLink("cartsprod", "carts.sockshop-production." + hostname);
-
-      </script>
-      <!-- 
-      -->
-      <div class="content__right">
-
-        <div class="foreground foreground--desktop" style="transform: translate(-22.6px, 40px);">
-          <!-- Base -->
-          <div id="particles-js"></div>
-
-        </div>
-      </div>
     </div>
   </div>
 
+
+  <script type="text/javascript">
+
+    function replaceInE(elementId, text) {
+      var e = document.getElementById(elementId);
+      e.innerHTML = text;
+    }
+
+    function addIframeInDiv(elementId, srcUrl) {
+      const iframe = document.createElement("iframe");
+      iframe.style = "border:2px solid  cornflowerblue;height:100%;width:100%;";
+      iframe.src =  srcUrl;
+      div = document.getElementById(elementId);
+      div.appendChild(iframe);
+    }
+
+    function addLink(elementId, link) {
+      var e = document.getElementById(elementId);
+      //e.innerHTML = link;
+      e.setAttribute('href', protocol + '//' + link);
+      e.setAttribute('target', "_blank");
+    }
+
+    var hostname = location.hostname;
+    var protocol = location.protocol;
+    var ip = hostname;
+    //We replace all dots and remove the magic domain
+    ip = ip.replace('-', '.').replace('-', '.').replace('-', '.').replace('-', '.').replace('.nip.io', '');
+
+    replaceInE("hostname", hostname);
+    replaceInE("hostnamessh", "ssh k8splay@" + hostname);
+    addIframeInDiv('content__right', protocol + "//webshell." + hostname + "/?" + ip + "/22/k8splay");
+
+    addLink("k8api", "api.kubernetes." + hostname);
+    addLink("kubernetes", "kubernetes." + hostname);
+    addLink("webshell", "webshell." + hostname + "/?" + ip + "/22/k8splay");
+    
+    //addLink("jenkins", "jenkins." + hostname);
+    //addLink("unleash", "unleash.unleash-dev." + hostname);
+    //addLink("keptnapi", "keptn." + hostname + "/api/swagger-ui/");
+    //addLink("bridge", "keptn." + hostname + "/bridge");
+    
+    //addLink("gitserver", "git." + hostname + "/api/swagger/");
+    //addLink("gitrepos", "git." + hostname + "/explore/repos");
+    
+    //addLink("pipeline", hostname + "/pipeline");
+    //addLink("cartsdev", "carts.sockshop-dev." + hostname);
+    //addLink("cartsstage", "carts.sockshop-staging." + hostname);
+    //addLink("cartsprod", "carts.sockshop-production." + hostname);
+
+  </script>
 
   <script>
     var nav = document.querySelector('.nav');

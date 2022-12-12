@@ -21,7 +21,7 @@ KEPTN_DT_SERVICE_VERSION=0.25.0
 
 # https://github.com/keptn/examples
 KEPTN_EXAMPLES_BRANCH="0.14.0"
-TEASER_IMAGE="shinojosa/k8splay:latest"
+TEASER_IMAGE="shinojosa/k8splaywebshell:v1.0"
 # https://github.com/ubuntu/microk8s/releases
 # snap info microk8s
 MICROK8S_CHANNEL="1.24/stable"

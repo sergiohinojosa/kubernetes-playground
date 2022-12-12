@@ -5,8 +5,8 @@
 # if NGINX throws 403 is a permission issue when cloning the repo. Give read rights to the html files recursively.
 
 # Build tick tack toe and push it to the repository of microk8s
-docker build  --platform linux/amd64 . -t shinojosa/k8splay:v0.4
+docker build  --platform linux/amd64 . -t shinojosa/k8splaywebshell:v1.0
 
 # we push the image into the cluster repository
-docker push shinojosa/k8splay:v0.4
+docker push shinojosa/k8splaywebshell:v1.0
 
