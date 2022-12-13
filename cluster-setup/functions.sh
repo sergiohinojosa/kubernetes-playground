@@ -417,11 +417,11 @@ setHostname(){
 setMotd(){
   printInfoSection "Setting Message of the Day"
   # disable all other motds
-  chmod -x /etc/update-motd.d/*
+  bashas "sudo chmod -x /etc/update-motd.d/*"
   # Copy custom MOTD
-  cp $K8S_PLAY_DIR/cluster-setup/resources/etc/update-motd.d/01-custom /etc/update-motd.d/01-custom
+  bashas "sudo cp $K8S_PLAY_DIR/cluster-setup/resources/etc/update-motd.d/01-custom /etc/update-motd.d/01-custom"
   # Enable custom MOTD
-  chmod +x /etc/update-motd.d/01-custom
+  bashas "sudo chmod +x /etc/update-motd.d/01-custom"
 }
 
 dynatracePrintValidateCredentials() {
@@ -982,7 +982,7 @@ removeMicrok8s() {
 doInstallation() {
   echo ""
   printInfoSection "Init Installation at  $(date) by user $(whoami)"
-  printInfo "Setting up Microk8s (SingleNode K8s Dev Cluster) with Keptn"
+  printInfo "Setting up Microk8s (SingleNode K8s Dev Cluster)"
   echo ""
   printSystemInfo
   # Record Disk Usage
@@ -1032,7 +1032,7 @@ doInstallation() {
 
   # Apps
   webshellInstall
-  
+
   keptnExamplesClone
   dynatraceSaveCredentials
 
