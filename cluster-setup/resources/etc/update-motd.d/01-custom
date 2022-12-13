@@ -18,9 +18,9 @@ REVERSE=$(tput smso)
 UNDERLINE=$(tput smul)
 
 echo "===================================================================================="
-echo "                     ${CYAN}         Hello K8s-Play            ${NORMAL}                            "
+echo "                     ${BLUE}         Hello K8s-Play            ${NORMAL}                            "
 echo "                                                                                                    "
-echo "      ${BLUE}                 Welcome to your your Kubernetes Playground               ${NORMAL}                "
+echo "      ${CYAN}                 Welcome to your your Kubernetes Playground               ${NORMAL}                "
 echo "${GREEN}"
 echo "      .oyyyyyson+.          sh                               hs                                                         "
 echo "  .:yhhhhhhhhh/ oy.   .:HHHHhd /:      /: .:HHH:.   :mHHHm.  dh//-  .mmmm. -mHHHm:   -HHHH.   .:HHHH:.                  "
@@ -32,7 +32,7 @@ echo "  / yhhhhhhh-hh+.     .:HHHH:     -Ns    hh     oN  :HHHHH:   :HHH:-N/    
 echo "   .osyyhhhh+/*                   yy                                                                                    "
 echo "${NORMAL}                                                                                                               "
 echo "                                                                                    "
-echo "  ${BLUE}   General System Information of your SingleNode K8s Cluster           ${NORMAL}             "
+echo "  ${CYAN}   General System Information of your SingleNode K8s Cluster           ${NORMAL}             "
 echo
 #/usr/bin/screenfetch
 echo
@@ -40,13 +40,13 @@ echo "System Disk Usage"
 inxi -D
 echo
 echo "                                                                                                             "
-echo "${BLUE}Recommended Kubernetes Learning path: ${NORMAL} "
+echo "${CYAN}Recommended Kubernetes Learning path: ${NORMAL} "
 echo "https://dynatrace.sharepoint.com/sites/SE/expertgroups/kubernetes/SitePages/Kubernetes-learning-path.aspx"
 echo
-echo "${BLUE}More information about this Playground: ${NORMAL}"
+echo "${CYAN}More information about this Playground: ${NORMAL}"
 echo "https://github.com/sergiohinojosa/kubernetes-playground"
 echo
-echo "${BLUE}Apps/Endpoints exposed via Ingress Gateway [kubectl get ing -A]:${NORMAL}"
+echo "${CYAN}Apps/Endpoints exposed via Ingress Gateway [kubectl get ing -A]:${NORMAL}"
 echo " press [Control] and click on the URL to open the Endpoint in your browser            "
 echo "------------------------------------------------------------------------------------${YELLOW}"
 #/snap/bin/kubectl get ing -A -o=jsonpath="{range .items[*]}{'-> http://'}{.spec.rules[0].host}{\"\t\"}{\"\n\"}{end}"
