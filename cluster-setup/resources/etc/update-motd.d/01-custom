@@ -2,11 +2,21 @@
 echo "===================================================================================="
 echo "                      Hello K8s-Play                                                "
 echo "                                                                                    "
+echo "            Welcome to your your Kubernetes Playground                              "
 echo "                                                                                    "
-echo "      Welcome to your your Kubernetes Playground                                    "
+echo "                                                                                                                        "
+echo "      .oyyyyyson+.          sh                               hs                                                         "
+echo "  .:yhhhhhhhhh/ oy.   .:HHHHhd /:      /: .:HHH:.   :mHHHm.  dh//-  .mmmm. -mHHHm:   -HHHH.   .:HHHH:.                  "
+echo "  s.  PPPPPPP nhhh   od/----yd /m:    sd./d+:  \dy       :do dh    .ms          :do dy:      sd/     d+                 "
+echo "  hhh.       ohhhh-  m+     sd  om-  +m- hh     oN. -:mmm:ym dy    -N/    -:mmmm:ym N.       my:mmmdh*                  "
+echo "  hhh        shhhh:  m+     sd   sd./m/  hh     oN-hh:    ym dy    -N/   .ds    -ms N.       my                         "
+echo "  hy ::::::: yhhho   od/---:dh    hdm+   hh     oN-dh:    hh yd:-- -N/   .mo    :mo dy:----  sd:                        "
+echo "  / yhhhhhhh-hh+.     .:HHHH:     -Ns    hh     oN  :HHHHH:   :HHH:-N/    .HHHHHH:   -HHHHH.   *HHHH*                   "
+echo "   .osyyhhhh+/*                   yy                                                                                    "
 echo "                                                                                    "
-echo " General System Information of your SingleNode K8s Cluster                          "
 echo
+echo
+echo "   General System Information of your SingleNode K8s Cluster                        "
 /usr/bin/screenfetch
 echo
 echo "System Disk Usage"
@@ -26,4 +36,6 @@ echo "--------------------------------------------------------------------------
 echo " To (un)deploy more apps go to /home/k8splay/apps/ "
 echo
 echo "------------------------------------------------------------------------------------"
+ 
 
+     
