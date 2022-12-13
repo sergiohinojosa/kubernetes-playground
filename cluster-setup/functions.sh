@@ -185,66 +185,6 @@ installationBundleWorkshop() {
   selected_bundle="installationBundleWorkshop"
 }
 
-installationBundleDevLove() {
-  selected_bundle="installationBundleDevLove"
-  update_ubuntu=true
-  docker_install=true
-  microk8s_install=true
-  setup_proaliases=true
-
-  enable_k8dashboard=true
-  istio_install=true
-  helm_install=true
-
-  certmanager_install=false
-  certmanager_enable=false
-
-  keptn_install=true
-  keptn_examples_clone=true
-  resources_clone=true
-
-  git_deploy=true
-  git_migrate=true
-
-  dynatrace_savecredentials=true
-  dynatrace_configure_monitoring=true
-
-  deploy_homepage=true
-
-  keptndemo_cartsload=false
-  keptndemo_unleash=false
-  keptndemo_unleash_configure=false
-  keptndemo_cartsonboard=false
-
-  expose_kubernetes_api=true
-  expose_kubernetes_dashboard=true
-  patch_kubernetes_dashboard=true
-  keptn_bridge_disable_login=true
-  # By default no WorkshopUser will be created
-  create_workshop_user=true
-  devlove_easytravel=true
-
-}
-  enable_k8dashboard=true
-
-  setup_proaliases=true
-  istio_install=true
-  keptn_install=true
-  helm_install=true
-  keptn_examples_clone=true
-  resources_clone=true
-
-  dynatrace_savecredentials=true
-  dynatrace_configure_monitoring=true
-
-  expose_kubernetes_api=true
-  expose_kubernetes_dashboard=true
-
-  deploy_homepage=true
-
-  selected_bundle="installationBundleKeptnOnly"
-}
-
 installationBundleKeptnQualityGates() {
   installationBundleKeptnOnly
 
