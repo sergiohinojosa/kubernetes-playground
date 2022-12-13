@@ -416,6 +416,9 @@ setHostname(){
 
 setMotd(){
   printInfoSection "Setting Message of the Day"
+  # install dependencies
+  apt install inxi screenfetch -y
+
   # disable all other motds
   bashas "sudo chmod -x /etc/update-motd.d/*"
   # Copy custom MOTD
@@ -1024,6 +1027,9 @@ doInstallation() {
   
   #Set Domain
   setupMagicDomainPublicIp
+
+  # k9sInstall
+  k9sInstall
 
   # K8s System components
   istioInstall
