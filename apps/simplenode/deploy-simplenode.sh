@@ -1,4 +1,7 @@
 #!/bin/bash
+ 
+# Read the domain from CM
+source ../util/loaddomain.sh
 
 # Read the domain from CM
 source ../util/loaddomain.sh
