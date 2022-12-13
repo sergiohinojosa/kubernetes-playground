@@ -191,29 +191,6 @@ installationBundleDevLove() {
   devlove_easytravel=true
 
 }
-
-installationBundleAll() {
-  # installation default
-  installationBundleWorkshop
-
-  enable_registry=true
-  # plus all others
-  certmanager_install=true
-  certmanager_enable=true
-  create_workshop_user=true
-  keptn_bridge_disable_login=true
-
-  jenkins_deploy=true
-
-  selected_bundle="installationBundleAll"
-}
-
-installationBundleKeptnOnly() {
-  # The minimal to have a full keptn working
-  # with exposed istio and keptn over nginx
-  update_ubuntu=true
-  docker_install=true
-  microk8s_install=true
   enable_k8dashboard=true
 
   setup_proaliases=true
@@ -486,6 +463,11 @@ setupProAliases() {
       alias c='clear' 
       alias hg='history | grep' 
       alias h='history' 
+      alias gita='git add -A'
+      alias gitc='git commit -s -m'
+      alias gith='git hist'
+      alias gitp='git push'
+      alias gits='git status'
       alias vaml='vi -c \"set syntax:yaml\" -' 
       alias vson='vi -c \"set syntax:json\" -' 
       alias pg='ps -aux | grep' " >/root/.bash_aliases
