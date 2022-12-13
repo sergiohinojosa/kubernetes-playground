@@ -100,6 +100,40 @@ create_workshop_user=false
 #  Each bundle has a set of modules (or functions) that will be        #
 #  activated upon installation.                                        #
 # ======================================================================
+
+installationBundleK8sPlayStandard() {
+  selected_bundle="installationBundleK8sPlayStandard"
+  
+  update_ubuntu=true
+  docker_install=true
+  microk8s_install=true
+  setup_proaliases=true
+  helm_install=true
+  istio_install=true
+  resources_clone=true
+  
+  k9s_install=true
+
+  enable_k8dashboard=true
+
+  dynatrace_savecredentials=true
+  deploy_homepage=true
+
+  expose_kubernetes_dashboard=true
+  patch_kubernetes_dashboard=true
+
+  expose_kubernetes_api=true
+  create_workshop_user=true
+
+  webshell_install=true
+
+  # Dynatrace deployment options. Classic has presedence in case both are active
+  dynatrace_deploy_classic=true
+
+  dynatrace_deploy_cloudnative=false
+
+}
+
 installationBundleDemo() {
   selected_bundle="installationBundleDemo"
   update_ubuntu=true
@@ -181,7 +215,7 @@ installationBundleDevLove() {
   keptndemo_unleash=false
   keptndemo_unleash_configure=false
   keptndemo_cartsonboard=false
-  
+
   expose_kubernetes_api=true
   expose_kubernetes_dashboard=true
   patch_kubernetes_dashboard=true
@@ -407,14 +441,12 @@ updateUbuntu() {
   fi
 }
 
-
-setHostname(){
+setHostname() {
   printInfoSection "Setting the HOSTNAME of your playground: $HOSTNAME"
   hostnamectl set-hostname $HOSTNAME
 }
 
-
-setMotd(){
+setMotd() {
   printInfoSection "Setting Message of the Day"
   # install dependencies
   apt install inxi screenfetch -y
@@ -590,7 +622,7 @@ helmInstall() {
     printInfoSection "Installing HELM ${HELM_VERSION} & Client manually from binaries"
     wget -q -O helm.tar.gz "https://get.helm.sh/helm-v${HELM_VERSION}-linux-amd64.tar.gz"
     tar -xvf helm.tar.gz
-    mv linux-amd64/helm /usr/local/bin/helm    
+    mv linux-amd64/helm /usr/local/bin/helm
     printInfo "Adding Default repo for Helm"
     bashas "helm repo add stable https://charts.helm.sh/stable"
     printInfo "Adding Keptn repo for Helm"
@@ -683,16 +715,16 @@ keptnInstall() {
     if [ "$keptn_install_qualitygates" = true ]; then
       printInfoSection "Install Keptn with Continuous Delivery UseCase (no Istio configuration)"
 
-     #bashas "echo 'y' | keptn install"
+      #bashas "echo 'y' | keptn install"
       bashas "helm install keptn keptn/keptn -n keptn --version=${KEPTN_VERSION} --create-namespace"
-      
-      waitForAllPods 
+
+      waitForAllPods
     else
       ## -- Keptn Installation --
       printInfoSection "Install Keptn with Continuous Delivery UseCase"
       bashas "helm install keptn keptn/keptn -n keptn --version=${KEPTN_VERSION} --create-namespace --set=continuousDelivery.enabled=true"
-      
-      # helm uninstall keptn -n 
+
+      # helm uninstall keptn -n
       waitForAllPods
 
       # Adding configuration for the IngressGW
@@ -758,22 +790,21 @@ gitMigrate() {
   fi
 }
 
-
 dynatraceDeployOperator() {
-if [ "$dynatrace_deploy_classic" = true ]; then
+  if [ "$dynatrace_deploy_classic" = true ]; then
     printInfoSection "Deploying the Dynatrace Operator with Classic FullStack Monitoring for $DT_TENANT"
 
-    # Deploy Operator 
+    # Deploy Operator
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
 
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && bash deploy_classic.sh"
 
     waitForAllPods
-fi
-if [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
+  fi
+  if [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
     printInfoSection "Deploying the Dynatrace Operator with CloudNative FullStack Monitoring for $DT_TENANT"
 
-    # Deploy Operator 
+    # Deploy Operator
     printInfo "Deploying the Dynatrace Operator and CSI Driver"
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
 
@@ -781,7 +812,6 @@ if [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" 
     waitForAllPods
   fi
 }
-
 
 dynatraceConfigureMonitoring() {
   #TODO Change monitoring with latest Operator
@@ -828,7 +858,7 @@ keptndemoUnleashConfigure() {
 
     UNLEASH_TOKEN=$(echo -n keptn:keptn | base64)
     UNLEASH_SERVER="http://unleash.unleash-dev.$DOMAIN"
-    
+
     waitForServersAvailability ${UNLEASH_SERVER}
 
     printInfoSection "Enable Feature Flags for Unleash and Configure Keptn for it"
@@ -998,20 +1028,19 @@ doInstallation() {
   echo ""
   validateSudo
   setBashas
-  
-  setHostname
 
+  setHostname
 
   dynatracePrintValidateCredentials
 
   enableVerbose
   updateUbuntu
   setupProAliases
-  
+
   # Dependencies
   dependenciesInstall
   dockerInstall
-  
+
   # MICROK8S
   microk8sInstall
   microk8sStart
@@ -1024,7 +1053,7 @@ doInstallation() {
 
   # Set MOTD
   setMotd
-  
+
   #Set Domain
   setupMagicDomainPublicIp
 
@@ -1046,10 +1075,10 @@ doInstallation() {
   patchKubernetesDashboard
 
   deployHomepage
-  
+
   keptnInstall
   keptndemoUnleash
-  
+
   dynatraceDeployOperator
 
   dynatraceConfigureMonitoring
