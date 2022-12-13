@@ -766,7 +766,7 @@ if [ "$dynatrace_deploy_classic" = true ]; then
     # Deploy Operator 
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
 
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace | bash deploy_cloudnative.sh"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && bash deploy_classic.sh"
 
     waitForAllPods
 fi
@@ -777,7 +777,7 @@ if [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" 
     printInfo "Deploying the Dynatrace Operator and CSI Driver"
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
 
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace | bash deploy_classic.sh"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && bash deploy_cloudnative.sh"
     waitForAllPods
   fi
 }
