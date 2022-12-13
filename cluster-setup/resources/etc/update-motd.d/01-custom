@@ -4,7 +4,14 @@ echo "                      Hello K8s-Play                                      
 echo "                                                                                    "
 echo "            Welcome to your your Kubernetes Playground                              "
 echo "                                                                                    "
-echo "                                                                                                                        "
+echo "   General System Information of your SingleNode K8s Cluster                        "
+echo
+/usr/bin/screenfetch
+echo
+echo "System Disk Usage"
+export TERM=xterm; inxi -D
+echo
+echo "----------------------------------------------------------------------------------------------------------------- "
 echo "      .oyyyyyson+.          sh                               hs                                                         "
 echo "  .:yhhhhhhhhh/ oy.   .:HHHHhd /:      /: .:HHH:.   :mHHHm.  dh//-  .mmmm. -mHHHm:   -HHHH.   .:HHHH:.                  "
 echo "  s.  PPPPPPP nhhh   od/----yd /m:    sd./d+:  \dy       :do dh    .ms          :do dy:      sd/     d+                 "
@@ -13,16 +20,8 @@ echo "  hhh        shhhh:  m+     sd   sd./m/  hh     oN-hh:    ym dy    -N/   .
 echo "  hy ::::::: yhhho   od/---:dh    hdm+   hh     oN-dh:    hh yd:-- -N/   .mo    :mo dy:----  sd:                        "
 echo "  / yhhhhhhh-hh+.     .:HHHH:     -Ns    hh     oN  :HHHHH:   :HHH:-N/    .HHHHHH:   -HHHHH.   *HHHH*                   "
 echo "   .osyyhhhh+/*                   yy                                                                                    "
-echo "                                                                                    "
-echo
-echo
-echo "   General System Information of your SingleNode K8s Cluster                        "
-/usr/bin/screenfetch
-echo
-echo "System Disk Usage"
-export TERM=xterm; inxi -D
-echo
-echo "===================================================================================="
+echo "                                                                                                                        "
+echo "                                                                                                                        "
 echo "Recommended Kubernetes Learning path:"
 echo "https://dynatrace.sharepoint.com/sites/SE/expertgroups/kubernetes/SitePages/Kubernetes-learning-path.aspx"
 echo
