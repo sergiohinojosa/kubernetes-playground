@@ -4,6 +4,8 @@
 **/gen/*/*.yaml
 
 **/gen/**.yaml
+
+**-gen.yaml
 # loc files
 **-loc**
 # No mounted file shares
