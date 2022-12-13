@@ -1022,15 +1022,19 @@ doInstallation() {
   # Set MOTD
   setMotd
   
+  #Set Domain
+  setupMagicDomainPublicIp
+
   # K8s System components
   istioInstall
   helmInstall
   certmanagerInstall
 
+  # Apps
+  webshellInstall
+  
   keptnExamplesClone
   dynatraceSaveCredentials
-
-  setupMagicDomainPublicIp
 
   exposeK8Services
   patchKubernetesDashboard
