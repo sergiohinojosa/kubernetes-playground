@@ -1,4 +1,5 @@
 #!/bin/sh
+export TERM=xterm;
 
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
@@ -36,7 +37,7 @@ echo
 #/usr/bin/screenfetch
 echo
 echo "System Disk Usage"
-export TERM=xterm; inxi -D
+inxi -D
 echo
 echo "${NORMAL}                                                                                                               "
 echo "${POWDER_BLUE}Recommended Kubernetes Learning path: ${NORMAL} "
