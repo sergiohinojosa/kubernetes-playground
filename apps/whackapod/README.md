@@ -1,6 +1,7 @@
 # WackApod Game
 
 
+### Unfortunately something is broken in the visualization of the Moles.
 
 Repo can be found here https://github.com/tpryan/whack_a_pod
 

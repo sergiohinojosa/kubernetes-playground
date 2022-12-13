@@ -3,13 +3,14 @@
 # Bash for deploying etherpad in Kubernetes
 # Application https://github.com/ether/etherpad-lite/blob/develop/doc/docker.md
 
-# Set the public ip for the ingress rule.
+# Read the domain from CM
+source ../util/loaddomain.sh
 
-export PUBLIC_IP=$(curl -s ifconfig.me) 
-PUBLIC_IP_AS_DOM=$(echo $PUBLIC_IP | sed 's~\.~-~g')
-export DOMAIN="${PUBLIC_IP_AS_DOM}.nip.io"
-sed 's~domain.placeholder~'"$DOMAIN"'~' 03-etherpad-ingress.template > 03-etherpad-ingress.yaml
+kubectl create ns etherpad
 
-kubectl apply -f .
+sed 's~domain.placeholder~'"$DOMAIN"'~' 03-etherpad-ingress.template > 03-etherpad-ingress-gen.yaml
+
+kubectl -n etherpad apply -f .
+
 echo "Etherpad service available at:"
-kubectl get ing etherpad-ingress
+kubectl -n etherpad get ing 

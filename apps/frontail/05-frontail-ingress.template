@@ -1,14 +1,21 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  annotations:
   name: frontail-ingress
+  annotations:
+      kubernetes.io/ingress.class: public
 spec:
   rules:
   - host: bash-history.domain.placeholder
     http:
       paths:
-      - backend:
-          serviceName: frontail
-          servicePort: 9001
+      - pathType: Prefix
         path: /
+        backend:
+          service:
+            name: frontail
+            port:
+              number: 9001
+  tls:
+  - hosts:
+    - bash-history.domain.placeholder
