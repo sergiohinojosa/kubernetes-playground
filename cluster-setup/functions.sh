@@ -32,6 +32,9 @@ DEVLOVE_ET_REPO="https://github.com/dynatrace-perfclinics/devlove-easytravel-pip
 DEVLOVE_ET_DIR="~/devlove-easytravel-pipelines"
 
 # - The user to run the commands from. Will be overwritten when executing this shell with sudo, this is just needed when spinning machines programatically and running the script with root without an interactive shell
+HOSTNAME="k8s-playground"
+
+# - The user to run the commands from. Will be overwritten when executing this shell with sudo, this is just needed when spinning machines programatically and running the script with root without an interactive shell
 USER="ubuntu"
 
 # Comfortable function for setting the sudo user.
@@ -73,6 +76,8 @@ git_deploy=false
 git_migrate=false
 
 dynatrace_savecredentials=false
+dynatrace_deploy_classic=false
+dynatrace_deploy_cloudnative=false
 dynatrace_configure_monitoring=false
 
 jenkins_deploy=false
@@ -400,6 +405,23 @@ updateUbuntu() {
     printInfoSection "Updating Ubuntu apt registry"
     apt update
   fi
+}
+
+
+setHostname(){
+  printInfoSection "Setting the HOSTNAME of your playground: $HOSTNAME"
+  hostnamectl set-hostname $HOSTNAME
+}
+
+
+setMotd(){
+  printInfoSection "Setting Message of the Day"
+  # disable all other motds
+  chmod -x /etc/update-motd.d/*
+  # Copy custom MOTD
+  cp $K8S_PLAY_DIR/cluster-setup/resources/etc/update-motd.d/01-custom /etc/update-motd.d/01-custom
+  # Enable custom MOTD
+  chmod +x /etc/update-motd.d/01-custom
 }
 
 dynatracePrintValidateCredentials() {
@@ -735,13 +757,24 @@ gitMigrate() {
 
 
 dynatraceDeployOperator() {
-if [ "$dynatrace_deploy_operator" = true ]; then
+if [ "$dynatrace_deploy_classic" = true ]; then
+    printInfoSection "Deploying the Dynatrace Operator with Classic FullStack Monitoring for $DT_TENANT"
+
+    # Deploy Operator 
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
+
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace | bash deploy_cloudnative.sh"
+
+    waitForAllPods
+fi
+if [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
     printInfoSection "Deploying the Dynatrace Operator with CloudNative FullStack Monitoring for $DT_TENANT"
 
     # Deploy Operator 
     printInfo "Deploying the Dynatrace Operator and CSI Driver"
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
 
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace | bash deploy_classic.sh"
     waitForAllPods
   fi
 }
@@ -927,7 +960,7 @@ printInstalltime() {
 
 printFlags() {
   printInfoSection "Function Flags values"
-  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_proaliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_savecredentials,dynatrace_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel}; do
+  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_proaliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_savecredentials,dynatrace_deploy_classic,dynatrace_deploy_cloudnative,dynatrace_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel}; do
     echo "$i = ${!i}"
   done
 }
@@ -962,25 +995,38 @@ doInstallation() {
   echo ""
   validateSudo
   setBashas
+  
+  setHostname
+
 
   dynatracePrintValidateCredentials
 
   enableVerbose
   updateUbuntu
   setupProAliases
-
+  
+  # Dependencies
   dependenciesInstall
   dockerInstall
+  
+  # MICROK8S
   microk8sInstall
   microk8sStart
   microk8sEnableBasic
   microk8sEnableDashboard
   microk8sEnableRegistry
 
+  # Clone repo
+  resourcesClone
+
+  # Set MOTD
+  setMotd
+  
+  # K8s System components
   istioInstall
   helmInstall
   certmanagerInstall
-  resourcesClone
+
   keptnExamplesClone
   dynatraceSaveCredentials
 
@@ -992,10 +1038,12 @@ doInstallation() {
   deployHomepage
   
   keptnInstall
-
   keptndemoUnleash
+  
+  dynatraceDeployOperator
 
   dynatraceConfigureMonitoring
+
   keptnBridgeDisableLogin
 
   jenkinsDeploy

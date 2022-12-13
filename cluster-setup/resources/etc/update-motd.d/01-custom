@@ -1,0 +1,29 @@
+#!/bin/sh
+echo "===================================================================================="
+echo "                      Hello K8s-Play                                                "
+echo "                                                                                    "
+echo "                                                                                    "
+echo "      Welcome to your your Kubernetes Playground                                    "
+echo "                                                                                    "
+echo " General System Information of your SingleNode K8s Cluster                          "
+echo
+/usr/bin/screenfetch
+echo
+echo "System Disk Usage"
+export TERM=xterm; inxi -D
+echo
+echo "===================================================================================="
+echo "Recommended Kubernetes Learning path:"
+echo "https://dynatrace.sharepoint.com/sites/SE/expertgroups/kubernetes/SitePages/Kubernetes-learning-path.aspx"
+echo
+echo "More information about this Playground:"
+echo "https://github.com/sergiohinojosa/kubernetes-playground"
+echo
+echo "Apps/Endpoints exposed via Ingress Gateway"
+echo "------------------------------------------------------------------------------------"
+kubectl get ing -A -o=jsonpath="{range .items[*]}{'-> http://'}{.spec.rules[0].host}{\"\t\"}{\"\n\"}{end}"
+echo "------------------------------------------------------------------------------------"
+echo " To (un)deploy more apps go to /home/k8splay/apps/ "
+echo
+echo "------------------------------------------------------------------------------------"
+
