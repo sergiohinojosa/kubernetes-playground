@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: frontail-ingress
   annotations:
-      kubernetes.io/ingress.class: public
+    kubernetes.io/ingress.class: public
 spec:
   rules:
   - host: bash-history.domain.placeholder
