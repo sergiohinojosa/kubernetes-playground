@@ -1,14 +1,20 @@
 # EasyTravel on Kubernetes!
 
-This what we have done so EasyTravel is working:
-1. Edit the CLUSTER_IP in [`loadgen-config.yaml`](ConfigMaps/loadgen-config.yaml#10) to your cluster IP.
+## Deploy & Undeploy the application
+How to deploy
+`bash deploy-easytravel.sh`
 
-## Start EasyTravel
-
-
- 1. `kubectl apply -f ConfigMaps/`
- 2. `kubectl apply -f Services/`
- 3. `kubectl apply -f Deployments/`
+How to remove
+`bash remove-easytravel.sh`
 
 
-Access EasyTravel (when running on local machine) under  [http://127.0.0.1:30088/](http://127.0.0.1:30088/)
+## Official Documentation
+
+More about the easytravel application:
+
+- https://github.com/Dynatrace/easyTravel-Docker
+
+- https://community.dynatrace.com/t5/Getting-started/easyTravel-Documentation-and-Download/m-p/181271
+
+
+![EasyTravel](https://community.dynatrace.com/t5/image/serverpage/image-id/4521iDEBB4D8F00CAB877/image-dimensions/2500?v=v2&px=-1)
