@@ -8,7 +8,7 @@ If you are looking for the orignial  Hipstershop from Google, you can be found i
     https://github.com/GoogleCloudPlatform/microservices-demo
 
 
-## How to deploy the App in the playground
+## How to deploy the App
 
 Just run the bash script: 
 

@@ -1,5 +1,7 @@
 # Etherpad 
 
+![Etherpad](https://etherpad.org/img/etherpad_demo.gif)
+
 ## Deploy & Undeploy the application
 How to deploy
 `bash deploy-etherpad.sh`
@@ -13,5 +15,3 @@ How to remove
 More about the Etherpad application:
 
 - https://etherpad.org/
-
-![Etherpad](https://etherpad.org/img/etherpad_demo.gif)

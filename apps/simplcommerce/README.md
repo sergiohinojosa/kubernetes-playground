@@ -1,6 +1,14 @@
-# The SimplCommerce NET Core App:
+# The SimplCommerce NET Core App
+A simple, cross platform, modularized ecommerce system built on .NET Core Join the chat at https://gitter.im/simplcommerce/SimplCommerce
+
 The original repository can be found here:
 https://github.com/simplcommerce/SimplCommerce
+## Deploy & Undeploy the application
+How to deploy
+`bash deploy-simplcommerce.sh`
+
+How to remove
+`bash remove-simplecommerce.sh`
 
 # SimplCommerce 
 ![SimplCommerce](../../doc/img/simplcommerce.png)
@@ -30,22 +38,3 @@ docker-compose down
 
 > Destroy data (clean DB) 
 docker-compose down -v
-
-
-# Kubernetes
-kubectl commands for copy paste
-
-## Create
-
-kubectl create ns simplcommerce
-
-kubectl -n simplcommerce apply -f 
-
-
-## Delete only shop
-kubectl delete --all deploy -n simplcommerce
-
-kubectl delete --all svc -n simplcommerce
-
-## Delete all
-kubectl delete ns simplcommerce
