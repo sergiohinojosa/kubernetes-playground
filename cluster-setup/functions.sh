@@ -75,10 +75,9 @@ resources_clone=false
 git_deploy=false
 git_migrate=false
 
-dynatrace_savecredentials=false
 dynatrace_deploy_classic=false
 dynatrace_deploy_cloudnative=false
-dynatrace_configure_monitoring=false
+keptn_configure_monitoring=false
 
 jenkins_deploy=false
 
@@ -107,7 +106,6 @@ installationBundleK8sPlayStandard() {
   update_ubuntu=true
   docker_install=true
   microk8s_install=true
-  setup_proaliases=true
   helm_install=true
   istio_install=true
   resources_clone=true
@@ -116,7 +114,6 @@ installationBundleK8sPlayStandard() {
 
   enable_k8dashboard=true
 
-  dynatrace_savecredentials=true
   deploy_homepage=true
 
   expose_kubernetes_dashboard=true
@@ -156,8 +153,7 @@ installationBundleDemo() {
   git_deploy=true
   git_migrate=true
 
-  dynatrace_savecredentials=true
-  dynatrace_configure_monitoring=true
+  keptn_configure_monitoring=true
 
   deploy_homepage=true
   keptndemo_cartsload=true
@@ -376,21 +372,26 @@ setMotd() {
   bashas "sudo chmod +x /etc/update-motd.d/01-custom"
 }
 
-dynatracePrintValidateCredentials() {
-  printInfoSection "Printing Dynatrace Credentials"
-  if [ -n "${TENANT}" ]; then
+dynatraceEvalReadSaveCredentials() {
+  printInfoSection "Dynatrace evaluating and reading/saving Credentials"
+  if [ -n "${TENANT}" ] ; then
     DT_TENANT=$TENANT
     DT_API_TOKEN=$APITOKEN
     DT_INGEST_TOKEN=$INGESTTOKEN
-    printInfo "-------------------------------"
+    printInfo "---Environment variables set, overriding & saving them ------"
     printInfo "Dynatrace Tenant: $DT_TENANT"
     printInfo "Dynatrace API Token: $DT_API_TOKEN"
     printInfo "Dynatrace Ingest Token: $DT_INGEST_TOKEN"
-    dynatrace_savecredentials=true
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
+  elif [[ $# -eq 3 ]]; then
+    printInfo "--- Variables passed as arguments, overriding & saving them ------"
+    printInfo "Dynatrace Tenant: $DT_TENANT"
+    printInfo "Dynatrace API Token: $DT_API_TOKEN"
+    printInfo "Dynatrace Ingest Token: $DT_INGEST_TOKEN"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
   else
-    printInfoSection "Dynatrace Variables not set, Dynatrace Operator wont be deployed"
-    dynatrace_savecredentials=false
-    dynatrace_configure_monitoring=false
+    printInfoSection "Dynatrace Variables not passed, reading them"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash credentials.sh"
   fi
 }
 
@@ -611,13 +612,6 @@ keptnExamplesClone() {
   fi
 }
 
-dynatraceSaveCredentials() {
-  if [ "$dynatrace_savecredentials" = true ]; then
-    printInfoSection "Save Dynatrace credentials"
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash save-credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
-  fi
-}
-
 keptnInstallClient() {
   printInfoSection "Download Keptn $KEPTN_VERSION"
   wget -q -O keptn.tar.gz "https://github.com/keptn/keptn/releases/download/${KEPTN_VERSION}/keptn-${KEPTN_VERSION}-linux-amd64.tar.gz"
@@ -718,9 +712,10 @@ dynatraceDeployOperator() {
 
     # Deploy Operator
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
+    printInfo "Operator deployed, waiting for "
+    waitForAllPods
 
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && bash deploy_classic.sh"
-
     waitForAllPods
   fi
   if [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
@@ -729,25 +724,21 @@ dynatraceDeployOperator() {
     # Deploy Operator
     printInfo "Deploying the Dynatrace Operator and CSI Driver"
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
+    waitForAllPods
 
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && bash deploy_cloudnative.sh"
     waitForAllPods
   fi
 }
 
-dynatraceConfigureMonitoring() {
-  #TODO Change monitoring with latest Operator
-  # Deprecated. see dynatraceDeployOperator
-  if [ "$dynatrace_configure_monitoring" = true ]; then
+keptnConfigureMonitoring() {
+  #TODO Deprecated. Modify just to configure Keptn Monitoring
+  if [ "$keptn_configure_monitoring" = true ]; then
     printInfoSection "Installing and configuring Dynatrace OneAgent on the Cluster for $DT_TENANT"
 
     printInfo "Saving Credentials in dynatrace secret in keptn ns"
     kubectl -n keptn create secret generic dynatrace --from-literal="DT_TENANT=$DT_TENANT" --from-literal="DT_API_TOKEN=$DT_API_TOKEN" --from-literal="DT_PAAS_TOKEN=$DT_PAAS_TOKEN" --from-literal="KEPTN_API_URL=http://$(kubectl -n keptn get ingress api-keptn-ingress -ojsonpath='{.spec.rules[0].host}')/api" --from-literal="KEPTN_API_TOKEN=$(kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.keptn-api-token}' | base64 --decode)" --from-literal="KEPTN_BRIDGE_URL=http://$(kubectl -n keptn get ingress api-keptn-ingress -ojsonpath='{.spec.rules[0].host}')/bridge"
-
-    # Deploy Operator as Help pages with containerized AG
-    printInfo "Deploying the OneAgent Operator and containerized AG monitoring all events and Cluster Health"
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
-
+    
     printInfo "Deploying the Dynatrace Service $KEPTN_DT_SERVICE_VERSION in Keptn via Helm"
     bashas "helm upgrade --install dynatrace-service -n keptn https://github.com/keptn-contrib/dynatrace-service/releases/download/$KEPTN_DT_SERVICE_VERSION/dynatrace-service-$KEPTN_DT_SERVICE_VERSION.tgz --set dynatraceService.config.keptnApiUrl=$KEPTN_ENDPOINT --set dynatraceService.config.keptnBridgeUrl=$KEPTN_BRIDGE_URL --set dynatraceService.config.generateTaggingRules=true --set dynatraceService.config.generateProblemNotifications=true --set dynatraceService.config.generateManagementZones=true --set dynatraceService.config.generateDashboards=true --set dynatraceService.config.generateMetricEvents=true"
 
@@ -864,17 +855,11 @@ printInstalltime() {
   printInfo "Disk used size 1K Blocks: $DISK_USED"
   printInfo "Disk used size in IEC Format: $(getDiskUsageInIec $DISK_USED)"
 
-  printInfoSection "Keptn & Kubernetes Exposed Ingress Endpoints"
+  printInfoSection "Kubernetes Exposed Ingress Endpoints"
   printInfo "Below you'll find the adresses and the credentials to the exposed services."
-  printInfo "We wish you a lot of fun in your Autonomous Cloud journey!"
+  printInfo "We wish you a lot of fun in your learning journey!"
   echo ""
   bashas "kubectl get ing -A"
-
-  if [ "$keptn_bridge_disable_login" = false ]; then
-    printInfoSection "Keptn Bridge Access"
-    bashas "keptn configure bridge --output"
-    echo ""
-  fi
 
   if [ "$keptndemo_unleash" = true ]; then
     printInfoSection "Unleash-Server Access"
@@ -908,14 +893,13 @@ printInstalltime() {
     printInfo "Password: ${NEWPWD}"
   fi
 
-  printInfoSection "Keptn in a Box $PLAY_RELEASE installation finished."
-  printInfo "Good luck in your Autonomous Cloud Journey!!"
-  printInfo "If you faced an issue or just want to say hi, come by @ https://keptn.slack.com/"
-}
+  printInfoSection "Kubernetes-Play branch($PLAY_RELEASE) installation finished."
+  printInfo "Good luck in your learning journey!!"
+  }
 
 printFlags() {
   printInfoSection "Function Flags values"
-  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_proaliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_savecredentials,dynatrace_deploy_classic,dynatrace_deploy_cloudnative,dynatrace_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel}; do
+  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_proaliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_deploy_classic,dynatrace_deploy_cloudnative,keptn_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel}; do
     echo "$i = ${!i}"
   done
 }
@@ -953,7 +937,6 @@ doInstallation() {
 
   setHostname
 
-  dynatracePrintValidateCredentials
 
   enableVerbose
   updateUbuntu
@@ -970,6 +953,9 @@ doInstallation() {
   microk8sEnableDashboard
   microk8sEnableRegistry
 
+  # Reading saving credentials after cluster setup
+  dynatraceEvalReadSaveCredentials
+  
   # Clone repo
   resourcesClone
 
@@ -991,7 +977,6 @@ doInstallation() {
   webshellInstall
 
   keptnExamplesClone
-  dynatraceSaveCredentials
 
   exposeK8Services
   patchKubernetesDashboard
@@ -1003,7 +988,7 @@ doInstallation() {
 
   dynatraceDeployOperator
 
-  dynatraceConfigureMonitoring
+  keptnConfigureMonitoring
 
   keptnBridgeDisableLogin
 
