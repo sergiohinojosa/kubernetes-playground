@@ -7,7 +7,6 @@ metadata:
     # We allow HTTP and HTTPS
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
   name: gitea-ingress
-  namespace: git
 spec:
   rules:
   - host: git.domain.placeholder
