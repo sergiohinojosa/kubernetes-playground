@@ -112,7 +112,7 @@ installationBundleK8sPlayStandard() {
   helm_install=true
   istio_install=true
   resources_clone=true
-
+  setup_proaliases=true
   k9s_install=true
 
   enable_k8dashboard=true

@@ -2,8 +2,9 @@
 # Set up of the Book application of istio for Microk8s
 # https://istio.io/docs/examples/bookinfo/
 
-# we delete the app
-kubectl delete ns book
+# undeploy app
+kubectl -n bookinfo delete -f manifests/
+
+# we delete the ns
+kubectl delete ns bookinfo
  
-# we disable istio
-microk8s.disable istio
