@@ -12,23 +12,46 @@ The mantra behind all this is that you
 *K8s-Playground is a 🚀 rocket launcher for enabling tutorials or workshops in an easy, fast and resource efficient way.* All tutorials can be automatized and versioned so that the student can at anytime spin the cluster and start exactly with the task at hand so he'll focus on the subject to learn without losing any time configuring trivial stuff.
 
 
-
-
 ![k8s-playground](doc/img/k8splay.jpg)
 
 
+## Get Started
+Most Likely the machine has been provisioned for you. Here are some cool tips and tricks to get you started. The machine has some cool [alias](doc/bash_aliases.md) installed already. Enter into the webshell in the iFrame or open it in a new tab for a better UX. Before starting to type, click on the right mouse to set the colors and settings of the webshell to your pleasing. Once you log in and the settings as you want, you can type the following commands:
+- k9s (really cool tool for navigating in kubernetes like butter)
+- kubectl (comes with autocomplete)
+- docker (for building your own images and installing them in the private regitry of your cluster)
+- istioctl 
+- helm (for installing any other app in seconds)
+- alias
+
+for deploying apps, just go to `cd ~/k8s-play/apps` and enter the folder of the app you want to deploy. Inside the folder you'll find a script for deploying and undeploying. It should be self-explanatory. The shell is normally for helping generate the Ingress rule with a subdomain so the app can be exposed with the help of one IP and a magic domain ([nip.io](https://nip.io)
+
+## Verify the installation
+By default the installation log can be found under `/tmp/k8splay-install.log`
+Type `less +F /tmp/k8splay-install.log` to read the log, scroll forward, and keep trying to read when the end of file is reached (in case the installation is still running).
 
 
+## Monitoring with Dynatrace
+
+If you provided the `tenant` 
+
+TENANT=
+APITOKEN=
+INGESTTOKEN=
+
+<!--  
+
+TODO Set the installation
+- tenant and tokens when provisioning
+- where are the credentials saved
+- how to deploy and undeploy
+- how to swap
+-->
 
 
-## how to run locally
+## OneClick App Repository!
 
-
-## how to customize
-
-# OneClick App Repository!!
-
-The following apps can be found under the [apps](apps) folder. Inside each app there is one bash script for deploying the app and one for removing it. 
+The following apps can be found under the [apps](apps) folder. Inside each app there is one bash script for deploying the app and one for removing it. When provisioning the machine this repo will be cloned as `k8s-play`in the home directory like: `~/k8s-play`
 
 
 <table style="table-layout: fixed; width: 100%; text-align: center;" >
