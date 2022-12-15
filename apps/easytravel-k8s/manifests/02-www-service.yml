@@ -6,11 +6,10 @@ metadata:
     app: easytravel-k8s
     type: www-service
 spec:
-  type: LoadBalancer
   ports:
     - port: 80
+      protocol: TCP
       targetPort: 80
-      nodePort: 30080
   selector:
     app: easytravel-k8s
     type: www-pod
