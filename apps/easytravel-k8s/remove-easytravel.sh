@@ -1,3 +1,4 @@
 #!/bin/bash
 
-kubectl delete ns simplenode
+kubectl -n easytravel delete -f manifests/
+kubectl delete ns easytravel
