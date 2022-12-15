@@ -43,9 +43,11 @@ deployCloudNative() {
 }
 
 undeployDynakubes(){
-    echo "Undeploying Dynakubes"
-    kubectl delete dynakube --all -n dynatrace
-    kubectl -n dynatrace wait pod --for=condition=delete --selector=app.kubernetes.io/name=oneagent,app.kubernetes.io/managed-by=dynatrace-operator --timeout=300s
+    echo "Undeploying Dynakubes, OneAgent installation from Workernode & CSI Driver if installed"
+    kubectl -n dynatrace delete dynakube --all 
+    kubectl -n dynatrace delete -f gen/microk8s-csi.yaml 2>/dev/null
+    #kubectl -n dynatrace wait pod --for=condition=delete --selector=app.kubernetes.io/name=oneagent,app.kubernetes.io/managed-by=dynatrace-operator --timeout=300s
+    sudo bash /opt/dynatrace/oneagent/agent/uninstall.sh 2>/dev/null 
 }
 
 uninstallDynatrace() {
