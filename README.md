@@ -1,4 +1,4 @@
-> **DISCLAIMER**: This project is being developed for educational purposes only and is not complete, nor supported. It's publishment is only intended for helping others automate environments for delivering workshops Kubernetes and Dynatrace. Even though the exposed endpoints of this cluster may have valid SSL certificates generated with Cert-Manager and Let's Encrypt, does not mean the Cluster is secure. 
+> **DISCLAIMER**: This project is being developed for educational purposes only and is not complete, nor supported. It's publishment is only intended for helping others automate environments for delivering workshops with Kubernetes and/or Dynatrace. Even though the exposed endpoints of this cluster may have valid SSL certificates generated with Cert-Manager and Let's Encrypt, does not mean the Cluster is secure. 
 
 > ## ***🥼⚗ Spend more time innovating and less time configuring***
 
@@ -28,7 +28,7 @@ The mantra behind all this is that you
 
 # OneClick App Repository!!
 
-
+The following apps can be found under the [apps](apps) folder. Inside each app there is a bash script for deploying and one for removing the app once you are done with the app. 
 
 
 <table style="table-layout: fixed; width: 100%; text-align: center;" >
