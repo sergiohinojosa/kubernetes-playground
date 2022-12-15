@@ -28,7 +28,7 @@ The mantra behind all this is that you
 
 # OneClick App Repository!!
 
-The following apps can be found under the [apps](apps) folder. Inside each app there is a bash script for deploying and one for removing the app once you are done with the app. 
+The following apps can be found under the [apps](apps) folder. Inside each app there is one bash script for deploying the app and one for removing it. 
 
 
 <table style="table-layout: fixed; width: 100%; text-align: center;" >
@@ -50,4 +50,3 @@ The following apps can be found under the [apps](apps) folder. Inside each app t
   <td style="width:25%;"></td>
   <td style="width:25%;"></td>
 </tr>
-
