@@ -1,0 +1,95 @@
+# Default values for gitea.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+clusterDomain: cluster.local
+
+image:
+  repository: gitea/gitea
+  version: 1.17.3 
+  pullPolicy: Always
+
+imagePullSecrets: []
+
+service:
+  http:
+    type: ClusterIP
+    port: 3000
+  ssh:
+    type: ClusterIP
+    port: 22
+    #loadBalancerIP:
+    #nodePort:
+    #externalTrafficPolicy:
+    #externalIPs:
+    annotations:
+
+ingress:
+  enabled: false
+  annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+  hosts:
+    - host: git.domain.placeholder
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - git.example.com
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+statefulset:
+  env: []
+    # - name: VARIABLE
+    #   value: my-value
+  terminationGracePeriodSeconds: 60
+
+persistence:
+  enabled: true
+  # existingClaim: 
+  size: 10Gi
+  accessModes:
+    - ReadWriteOnce
+
+gitea:
+  admin:
+    username: GIT_USER.placeholder
+    password: GIT_PASSWORD.placeholder
+    email: "GIT_USER.placeholder@local.domain"
+
+  config: {}
+  #  APP_NAME: "Gitea: Git with a cup of tea"
+  #  RUN_MODE: dev   
+  #   
+  #  server:
+  #    SSH_PORT: 22
+  #
+  #  security:
+  #    PASSWORD_COMPLEXITY: spec
+
+  podAnnotations: {}
+
+
+postgresql:
+  enabled: true
