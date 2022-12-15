@@ -14,5 +14,9 @@ sed -e 's~domain.placeholder~'"$DOMAIN"'~' \
 echo "install gitea via Helmchart"
 helm install gitea gitea-charts/gitea -f gen/helm-gitea.yaml --namespace gitea
 
+sed 's~domain.placeholder~'"$DOMAIN"'~'  ingress.template > gen/ingress-gen.yaml
+
+kubectl -n gitea apply -f gen/ingress-gen.yaml
+
 echo "gitea is available at"
 kubectl get ing -n gitea 
