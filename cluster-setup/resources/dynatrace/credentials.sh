@@ -7,7 +7,7 @@ saveReadCredentials() {
         DT_TENANT=$1
         DT_API_TOKEN=$2
         DT_INGEST_TOKEN=$3
-        echo "Saving the credentials ConfigMap dtcredentials -n default with following arguments supplied:"
+        echo "Saving the credentials ConfigMap dtcredentials -n default with following arguments supplied: @"
 
         kubectl delete configmap -n default dtcredentials 2>/dev/null
         kubectl create configmap -n default dtcredentials --from-literal=tenant=${DT_TENANT} --from-literal=apiToken=${DT_API_TOKEN} --from-literal=dataIngestToken=${DT_INGEST_TOKEN}

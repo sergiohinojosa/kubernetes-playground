@@ -25,17 +25,20 @@ TEASER_IMAGE="shinojosa/k8splaywebshell:v1.0"
 # https://github.com/ubuntu/microk8s/releases
 # snap info microk8s
 MICROK8S_CHANNEL="1.24/stable"
-K8S_PLAY_DIR="~/k8s-play"
-KEPTN_EXAMPLES_DIR="~/examples"
 K8S_PLAY_REPO="https://github.com/sergiohinojosa/kubernetes-playground.git"
 DEVLOVE_ET_REPO="https://github.com/dynatrace-perfclinics/devlove-easytravel-pipelines.git"
-DEVLOVE_ET_DIR="~/devlove-easytravel-pipelines"
+
+# - The user to run the commands from. Will be overwritten when executing this shell with sudo, this is just needed when spinning machines programatically and running the script with root without an interactive shell
+USER="ubuntu"
+
+# Directories
+K8S_PLAY_DIR="/home/$USER/k8s-play"
+KEPTN_EXAMPLES_DIR="/home/$USER/examples"
+DEVLOVE_ET_DIR="/home/$USER/devlove-easytravel-pipelines"
 
 # - The user to run the commands from. Will be overwritten when executing this shell with sudo, this is just needed when spinning machines programatically and running the script with root without an interactive shell
 HOSTNAME="k8s-playground"
 
-# - The user to run the commands from. Will be overwritten when executing this shell with sudo, this is just needed when spinning machines programatically and running the script with root without an interactive shell
-USER="ubuntu"
 
 # Comfortable function for setting the sudo user.
 if [ -n "${SUDO_USER}" ]; then
@@ -707,27 +710,30 @@ gitMigrate() {
 }
 
 dynatraceDeployOperator() {
-  # Read credentials
-  bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials"
+  
+  # posssibility to load functions.sh and call dynatraceDeployOperator A B C to save credentials and override
+  # or just run in normal deployment 
+  # Save & Read credentials as root
+  source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials $@
 
   if [ -n "${DT_TENANT}" ]; then
     printInfoSection "Deploying Dynatrace Operator"
     # Deploy Operator
-    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/deploy_operator.sh && deployOperator"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployOperator"
     waitForAllPods
 
     if [ "$dynatrace_deploy_classic" = true ]; then
 
       printInfo "Deploying Dynakube with Classic FullStack Monitoring for $DT_TENANT"
 
-      bashas "deployClassic"
+      bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployClassic"
       waitForAllPods
 
     elif [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
 
       printInfo "Deploying Dynakube with CloudNative FullStack Monitoring for $DT_TENANT"
 
-      bashas "deployCloudNative"
+      bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployCloudNative"
       waitForAllPods
     fi
 
