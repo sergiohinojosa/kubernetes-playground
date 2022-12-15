@@ -31,9 +31,9 @@ The mantra behind all this is that you
 
 
 
-<table style="table-layout: fixed; width: 100%;" >
+<table style="table-layout: fixed; width: 100%; text-align: center" >
 <tr valign="top">
-  <td style="width:25%;">BookInfo<img src="https://istio.io/latest/docs/examples/bookinfo/noistio.svg"/></td>
+  <td style="width:25%;"><a href="apps/bookinfo" target="_blank">BookInfo<img src="https://istio.io/latest/docs/examples/bookinfo/noistio.svg"/></a></td>
   <td style="width:25%;">EasyTravel<img src="https://community.dynatrace.com/t5/image/serverpage/image-id/4521iDEBB4D8F00CAB877"/></td>
   <td style="width:25%;">Etherpad<img src="https://etherpad.org/img/etherpad_demo.gif"/></td>
   <td style="width:25%;">Frontail<img src="https://user-images.githubusercontent.com/455261/29570317-660c8122-8756-11e7-9d2f-8fea19e05211.gif"/></td>
