@@ -385,13 +385,16 @@ dynatraceEvalReadSaveCredentials() {
     printInfo "Dynatrace Tenant: $DT_TENANT"
     printInfo "Dynatrace API Token: $DT_API_TOKEN"
     printInfo "Dynatrace Ingest Token: $DT_INGEST_TOKEN"
-    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
+    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials \"$DT_TENANT\" \"$DT_API_TOKEN\" \"$DT_INGEST_TOKEN\""
   elif [[ $# -eq 3 ]]; then
+    DT_TENANT=$1
+    DT_API_TOKEN=$2
+    DT_INGEST_TOKEN=$3
     printInfo "--- Variables passed as arguments, overriding & saving them ------"
     printInfo "Dynatrace Tenant: $DT_TENANT"
     printInfo "Dynatrace API Token: $DT_API_TOKEN"
     printInfo "Dynatrace Ingest Token: $DT_INGEST_TOKEN"
-    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
+    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials \"$DT_TENANT\" \"$DT_API_TOKEN\" \"$DT_INGEST_TOKEN\""
   else
     printInfoSection "Dynatrace Variables not passed, reading them"
     bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials"
@@ -956,7 +959,10 @@ doInstallation() {
   dependenciesInstall
   dockerInstall
 
-  # MICROK8S
+  # Clone repo
+  resourcesClone
+
+  # Installing SingleNode K8s Cluster
   microk8sInstall
   microk8sStart
   microk8sEnableBasic
@@ -965,9 +971,6 @@ doInstallation() {
 
   # Reading saving credentials after cluster setup
   dynatraceEvalReadSaveCredentials
-
-  # Clone repo
-  resourcesClone
 
   # Set MOTD
   setMotd
