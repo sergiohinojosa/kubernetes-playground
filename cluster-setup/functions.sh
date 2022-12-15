@@ -102,14 +102,14 @@ create_workshop_user=false
 
 installationBundleK8sPlayStandard() {
   selected_bundle="installationBundleK8sPlayStandard"
-  
+
   update_ubuntu=true
   docker_install=true
   microk8s_install=true
   helm_install=true
   istio_install=true
   resources_clone=true
-  
+
   k9s_install=true
 
   enable_k8dashboard=true
@@ -374,7 +374,7 @@ setMotd() {
 
 dynatraceEvalReadSaveCredentials() {
   printInfoSection "Dynatrace evaluating and reading/saving Credentials"
-  if [ -n "${TENANT}" ] ; then
+  if [ -n "${TENANT}" ]; then
     DT_TENANT=$TENANT
     DT_API_TOKEN=$APITOKEN
     DT_INGEST_TOKEN=$INGESTTOKEN
@@ -382,16 +382,16 @@ dynatraceEvalReadSaveCredentials() {
     printInfo "Dynatrace Tenant: $DT_TENANT"
     printInfo "Dynatrace API Token: $DT_API_TOKEN"
     printInfo "Dynatrace Ingest Token: $DT_INGEST_TOKEN"
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
+    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
   elif [[ $# -eq 3 ]]; then
     printInfo "--- Variables passed as arguments, overriding & saving them ------"
     printInfo "Dynatrace Tenant: $DT_TENANT"
     printInfo "Dynatrace API Token: $DT_API_TOKEN"
     printInfo "Dynatrace Ingest Token: $DT_INGEST_TOKEN"
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash credentials.sh \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
+    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials \"$DT_TENANT\" \"$APITOKEN\" \"$INGESTTOKEN\""
   else
     printInfoSection "Dynatrace Variables not passed, reading them"
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/ ; bash credentials.sh"
+    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials"
   fi
 }
 
@@ -707,27 +707,32 @@ gitMigrate() {
 }
 
 dynatraceDeployOperator() {
-  if [ "$dynatrace_deploy_classic" = true ]; then
-    printInfoSection "Deploying the Dynatrace Operator with Classic FullStack Monitoring for $DT_TENANT"
+  # Read credentials
+  bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials"
 
+  if [ -n "${DT_TENANT}" ]; then
+    printInfoSection "Deploying Dynatrace Operator"
     # Deploy Operator
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
-    printInfo "Operator deployed, waiting for "
+    bashas "source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/deploy_operator.sh && deployOperator"
     waitForAllPods
 
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && bash deploy_classic.sh"
-    waitForAllPods
-  fi
-  if [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
-    printInfoSection "Deploying the Dynatrace Operator with CloudNative FullStack Monitoring for $DT_TENANT"
+    if [ "$dynatrace_deploy_classic" = true ]; then
 
-    # Deploy Operator
-    printInfo "Deploying the Dynatrace Operator and CSI Driver"
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && echo 'y' | bash deploy_operator.sh"
-    waitForAllPods
+      printInfo "Deploying Dynakube with Classic FullStack Monitoring for $DT_TENANT"
 
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && bash deploy_cloudnative.sh"
-    waitForAllPods
+      bashas "deployClassic"
+      waitForAllPods
+
+    elif [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
+
+      printInfo "Deploying Dynakube with CloudNative FullStack Monitoring for $DT_TENANT"
+
+      bashas "deployCloudNative"
+      waitForAllPods
+    fi
+
+  else
+    printInfo "Not deploying the Dynatrace Operator, no credentials found"
   fi
 }
 
@@ -738,7 +743,7 @@ keptnConfigureMonitoring() {
 
     printInfo "Saving Credentials in dynatrace secret in keptn ns"
     kubectl -n keptn create secret generic dynatrace --from-literal="DT_TENANT=$DT_TENANT" --from-literal="DT_API_TOKEN=$DT_API_TOKEN" --from-literal="DT_PAAS_TOKEN=$DT_PAAS_TOKEN" --from-literal="KEPTN_API_URL=http://$(kubectl -n keptn get ingress api-keptn-ingress -ojsonpath='{.spec.rules[0].host}')/api" --from-literal="KEPTN_API_TOKEN=$(kubectl get secret keptn-api-token -n keptn -ojsonpath='{.data.keptn-api-token}' | base64 --decode)" --from-literal="KEPTN_BRIDGE_URL=http://$(kubectl -n keptn get ingress api-keptn-ingress -ojsonpath='{.spec.rules[0].host}')/bridge"
-    
+
     printInfo "Deploying the Dynatrace Service $KEPTN_DT_SERVICE_VERSION in Keptn via Helm"
     bashas "helm upgrade --install dynatrace-service -n keptn https://github.com/keptn-contrib/dynatrace-service/releases/download/$KEPTN_DT_SERVICE_VERSION/dynatrace-service-$KEPTN_DT_SERVICE_VERSION.tgz --set dynatraceService.config.keptnApiUrl=$KEPTN_ENDPOINT --set dynatraceService.config.keptnBridgeUrl=$KEPTN_BRIDGE_URL --set dynatraceService.config.generateTaggingRules=true --set dynatraceService.config.generateProblemNotifications=true --set dynatraceService.config.generateManagementZones=true --set dynatraceService.config.generateDashboards=true --set dynatraceService.config.generateMetricEvents=true"
 
@@ -895,7 +900,7 @@ printInstalltime() {
 
   printInfoSection "Kubernetes-Play branch($PLAY_RELEASE) installation finished."
   printInfo "Good luck in your learning journey!!"
-  }
+}
 
 printFlags() {
   printInfoSection "Function Flags values"
@@ -937,7 +942,6 @@ doInstallation() {
 
   setHostname
 
-
   enableVerbose
   updateUbuntu
   setupProAliases
@@ -955,7 +959,7 @@ doInstallation() {
 
   # Reading saving credentials after cluster setup
   dynatraceEvalReadSaveCredentials
-  
+
   # Clone repo
   resourcesClone
 
