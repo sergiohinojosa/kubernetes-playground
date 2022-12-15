@@ -727,14 +727,14 @@ dynatraceDeployOperator() {
 
     if [ "$dynatrace_deploy_classic" = true ]; then
 
-      printInfo "Deploying Dynakube with Classic FullStack Monitoring for $DT_TENANT"
+      printInfoSection "Deploying Dynakube with Classic FullStack Monitoring for $DT_TENANT"
 
       bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployClassic"
       waitForAllPods
 
     elif [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
 
-      printInfo "Deploying Dynakube with CloudNative FullStack Monitoring for $DT_TENANT"
+      printInfoSection "Deploying Dynakube with CloudNative FullStack Monitoring for $DT_TENANT"
 
       bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployCloudNative"
       waitForAllPods
