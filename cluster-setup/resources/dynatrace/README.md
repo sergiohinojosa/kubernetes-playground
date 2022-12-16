@@ -36,12 +36,18 @@ The Dynatrace credentials are saved in a `configmap` during installation in the 
 
 ### Swap deployment mode and work with the deployment functions
 
-If you want to swap the deployment mode from Classic full-stack to CloudNative full-Stack, just navigate to this directory `cd ~/k8s-play/cluster-setup/resources/dynatrace/` and load the deployment functions into your shell `source deploy_functions.sh`. You'll see a message
-`the functions deployOperator deployClassic deployCloudNative undeployDynakubes uninstallDynatrace have been loaded to the current shell`
-This means that as long as you don't change the shell, you can run this functions.
+If you want to swap the deployment mode from Classic full-stack to CloudNative full-Stack, just navigate to this directory `cd ~/k8s-play/cluster-setup/resources/dynatrace/` and load the deployment functions into your shell `source deploy_functions.sh`. 
+You'll see the message
 
-Then run `undeployDynakubes` to delete the dynakubes. 
-This should delete the oneagent pod and the containerized active gate. Before you deploy the different deployment mode run `kubectl get pod -n dynatrace` to verify that the oneagent has been terminated succesfully (if not you can `--force` the deletion but this is normally not necessary).
+```
+the functions deployOperator deployClassic deployCloudNative undeployDynakubes uninstallDynatrace have been loaded to the current shell
+```
+This means that as long as you don't change the shell, you can execute this functions.
+
+Then run `undeployDynakubes` to delete the dynakubes of the actual installation (will delete the OneAgent, ActiveGates and CSI Drivers). 
+
+Before you deploy the different deployment mode run `kubectl get pod -n dynatrace` to verify that the oneagent has been terminated succesfully (if not you can `--force` the deletion but this is normally not necessary).
+
 
 After the undeployment is done you can then deploy the CloudNative full-stack deployment by running the command `deployCloudNative`.
 
