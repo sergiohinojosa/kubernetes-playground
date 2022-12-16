@@ -47,7 +47,7 @@ TODO Set the installation
 -->
 
 
-## Deploy your app with just OneClick 🚀!
+## Deploy your app with just 1-click 🚀!
 
 The following apps can be found under the [apps](apps) folder. Inside each app there is one bash script for deploying the app and one for removing it. When provisioning the machine this repo will be cloned as `k8s-play`in the home directory like: `~/k8s-play`
 <table style="table-layout: fixed; width: 100%; text-align: center;" >
