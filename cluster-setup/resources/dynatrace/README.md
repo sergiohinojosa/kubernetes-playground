@@ -25,6 +25,7 @@ and you copy/paste:
 >INGESTTOKEN="Generated Data ingest token"
 
 
+
 ## 💾 Storage of the credentials during/after provisioning
 
 The Dynatrace credentials are saved in a `configmap` during installation in the `default` namespace. This allows a clean reinstallation even after deleting the namespace `dynatrace` so you can swap the monitoring mode.
