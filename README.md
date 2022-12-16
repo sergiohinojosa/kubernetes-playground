@@ -1,8 +1,8 @@
+# Kubernetes Playground
+
 > **DISCLAIMER**: This project is being developed for educational purposes only and is not complete, nor supported. It's publishment is only intended for helping others automate environments for delivering workshops with Kubernetes and/or Dynatrace. Even though the exposed endpoints of this cluster may have valid SSL certificates generated with Cert-Manager and Let's Encrypt, does not mean the Cluster is secure. 
 
 > ## ***🥼⚗ Spend more time innovating and less time configuring***
-
-# Kubernetes Playground
 
 The `Kubernetes Playground` is a single node Kubernetes Cluster based on [microk8s](https://microk8s.io/)  which is a simple production-grade upstream certified Kubernetes made for developers and DevOps.
 
@@ -16,7 +16,7 @@ The mantra behind all this is that you
 
 
 ## Get Started
-Most Likely the machine has been provisioned for you. Here are some cool tips and tricks to get you started. The machine has some cool [alias](doc/bash_aliases.md) installed already. Enter into the webshell in the iFrame or open it in a new tab for a better UX. Before starting to type, click on the right mouse to set the colors and settings of the webshell to your pleasing. Once you log in and the settings as you want, you can type the following commands:
+Most Likely the machine has been provisioned for you. Here are some cool tips and tricks to get you started. The machine has some cool [alias](doc/bash_aliases.md) installed already. Enter into the webshell in the iFrame or open it in a new tab for a better UX. Before starting to type, click on the right mouse to set the colors and settings of the webshell to your pleasing. Once you log in and the settings are as you want, you can type the following commands:
 - [k9s](https://k9scli.io/) (really cool tool for navigating in kubernetes like butter)
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/) (comes with autocomplete)
 - [docker](https://www.docker.com/) (for building your own images and installing them in the private regitry of your cluster)
@@ -36,16 +36,6 @@ Type `less +F /tmp/k8splay-install.log` to read the log, scroll forward, and kee
 By default your instance will be monitored with the Dynatrace credentials you provisioned (`tenant`, `api_token`, `data_ingest_token`) which are required when you monitor a [Kubernetes Cluster with Dynatrace](https://www.dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring). 
 
 The default deployment mode is [Classic full-stack injection](dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring/deployment-options-k8s#classic) but you can easily swap to the [CloudNative full-stack injection](https://www.dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring/deployment-options-k8s#cloud-native), (yeah, how cool is that!?). [Go here to learn more](cluster-setup/resources/dynatrace).
-
-<!--  
-
-TODO Set the installation
-- tenant and tokens when provisioning
-- where are the credentials saved
-- how to deploy and undeploy
-- how to swap
--->
-
 
 ## Deploy your app with just 1-click 🚀!
 
@@ -74,3 +64,11 @@ The following apps can be found under the [apps](apps) folder. Inside each app t
 
 
 ## Provisioning your own Kubernetes Playground
+
+
+<!--
+
+How to provision, take from kiab
+
+
+-->

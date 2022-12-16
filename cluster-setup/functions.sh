@@ -722,21 +722,21 @@ dynatraceDeployOperator() {
   if [ -n "${DT_TENANT}" ]; then
     printInfoSection "Deploying Dynatrace Operator"
     # Deploy Operator
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployOperator"
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployOperator"
     waitForAllPods
 
     if [ "$dynatrace_deploy_classic" = true ]; then
 
       printInfoSection "Deploying Dynakube with Classic FullStack Monitoring for $DT_TENANT"
 
-      bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployClassic"
+      bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployClassic"
       waitForAllPods
 
     elif [ "$dynatrace_deploy_classic" = false ] && [ "$dynatrace_deploy_cloudnative" = true ]; then
 
       printInfoSection "Deploying Dynakube with CloudNative FullStack Monitoring for $DT_TENANT"
 
-      bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_operator.sh && deployCloudNative"
+      bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployCloudNative"
       waitForAllPods
     fi
 
