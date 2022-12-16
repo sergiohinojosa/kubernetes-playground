@@ -40,27 +40,58 @@ The Dynatrace credentials are saved in a `configmap` during installation in the 
 
 ## 🔄 Swap deployment mode and work with the deployment functions
 
-If you want to swap the deployment mode from Classic full-stack to CloudNative full-Stack, just navigate to this directory `cd ~/k8s-play/cluster-setup/resources/dynatrace/` and load the deployment functions into your shell `source deploy_functions.sh`. 
-You'll see the message
+If you want to swap the deployment mode from Classic full-stack to CloudNative full-Stack, just navigate to this directory
 
+```bash
+cd ~/k8s-play/cluster-setup/resources/dynatrace/
 ```
+
+and load the deployment functions into your shell 
+
+```bash
+source deploy_functions.sh
+``` 
+
+You'll see the message:
+
+```bash
 the functions deployOperator deployClassic deployCloudNative undeployDynakubes uninstallDynatrace have been loaded to the current shell
 ```
+
+
 This means that as long as you don't change the shell, you can execute this functions.
-Then run `undeployDynakubes` to delete the dynakubes of the actual installation (will delete the OneAgent, ActiveGates and CSI Drivers). 
+Then run 
+```bash
+undeployDynakubes
+``` 
+to delete the dynakubes of the actual installation (will delete the OneAgent, ActiveGates and CSI Drivers). 
 
 Before you deploy the different deployment mode run `kubectl get pod -n dynatrace` to verify that the oneagent has been terminated succesfully (if not you can `--force` the deletion but this is normally not necessary).
 
 
-After the undeployment is done you can then deploy the CloudNative full-stack deployment by running the command `deployCloudNative`.
+After the undeployment is done you can then deploy the CloudNative full-stack deployment by running the command 
+
+```bash
+deployCloudNative
+```
 
 
 ## Complete uninstall of Dynatrace
-Run `source deploy_functions.sh` and then `uninstallDynatrace`.
+Run 
+```bash
+source deploy_functions.sh
+``` 
+and then
+
+```bash
+uninstallDynatrace
+```
+
 
 ## Fresh install of Dynatrace with new Credentials
 
 Run `source credentials.sh` and then 
+
 ```bash
 saveReadCredentials $DT_TENANT $DT_API_TOKEN $DT_INGEST_TOKEN
 ```
