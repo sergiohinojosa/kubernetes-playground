@@ -63,3 +63,5 @@ uninstallDynatrace() {
 
     kubectl delete namespace dynatrace
 }
+
+echo "the functions deployOperator deployClassic deployCloudNative undeployDynakubes uninstallDynatrace have been loaded to the current shell"
