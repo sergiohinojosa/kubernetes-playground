@@ -16,7 +16,7 @@ The mantra behind all this is that you
 
 
 ## Get Started
-Most Likely the machine has been provisioned for you. Here are some cool tips and tricks to get you started. The machine has some cool [alias](doc/bash_aliases.md) installed already. Enter into the webshell in the iFrame or open it in a new tab for a better UX. Before starting to type, click on the right mouse to set the colors and settings of the webshell to your pleasing. Once you log in and the settings are as you want, you can type the following commands:
+Most Likely the machine has been already provisioned for you. Here are some cool tips and tricks to get you started so you can get the most out of it. The machine has some cool [alias](doc/bash_aliases.md) installed already. Enter into the webshell in the iFrame or open it in a new tab for a better UX. Before starting to type, click on the right mouse to set the colors and settings of the webshell to your pleasing. Once the settings are as you want, log in and type the following commands:
 - [k9s](https://k9scli.io/) (really cool tool for navigating in kubernetes like butter)
 - [kubectl](https://kubernetes.io/docs/reference/kubectl/) (comes with autocomplete)
 - [docker](https://www.docker.com/) (for building your own images and installing them in the private regitry of your cluster)
