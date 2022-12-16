@@ -6,6 +6,17 @@ You'll learn how to create a docker container, pack it into a pod and expose it 
 
 ![tictactoe](../../doc/img/tictactoe.png)
 
+
+
+
+## 0. Enable the private registry of your cluster
+
+```bash
+microk8s.enable registry
+```
+The above command will deploy the image registry which is available at localhost:32000.
+
+
 ## 1. Build the image 
 
 `bash buildtictactoe.sh`
