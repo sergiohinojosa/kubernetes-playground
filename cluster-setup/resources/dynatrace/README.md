@@ -60,8 +60,11 @@ Run `source deploy_functions.sh` and then `uninstallDynatrace`.
 
 ## Fresh install of Dynatrace with new Credentials
 
-Run `source credentials.sh` and then `saveReadCredentials $DT_TENANT $DT_API_TOKEN $DT_INGEST_TOKEN`.
-This will call the function `saveReadCredentials` and will override the credentials saved as configmap (if any). You can run the `saveReadCredentials` function to verify the values of the configmap.
+Run `source credentials.sh` and then 
+```bash
+saveReadCredentials $DT_TENANT $DT_API_TOKEN $DT_INGEST_TOKEN
+```
+This will call the function `saveReadCredentials` and will override the credentials saved as configmap (if any) in the default namespace. You can run the `saveReadCredentials` function to verify the values of the configmap beforehand.
 
 After you have setted your new credentials then run the function `source deploy_functions.sh && deployOperator` to deploy the operator and then deploy the deployment mode of your liking (either Classic or CloudNative).
 
