@@ -64,13 +64,8 @@ K8s-Playground is programmed natively for Linux sytems, specially Ubuntu. The Ku
 
 Go to the [Cluster-Setup](cluster-setup) to learn more how to spin an instance manually or via automations.
 
+## Contributing
+If you have any ideas for improvements or want to contribute that's great. Create a pull request or file an issue.
 
-## Verify the installation
-By default the installation log can be found under `/tmp/k8splay-install.log`
-Type `less +F /tmp/k8splay-install.log` to read the log, scroll forward, and keep trying to read when the end of file is reached (in case the installation is still running).
-
-If you want to verify that the installation finished without errors. Inspect the log with this command:
-```bash
-cat /tmp/k8splay-install.log | grep -i error
-```
-If there is no output it means that no error was found in the installation log.
+## Author 
+sergio.hinojosa@dynatrace.com
