@@ -3,20 +3,20 @@
 
 ## Prerequisite
 The only prerequisite for Kubernetes-Playground is that you get an Ubuntu machine and that it has an internet connection. This can be a VirtualMachine running in your datacenter, on your laptop or in a cloud provider such as Microsoft Azure, Amazon Web Services, Google Cloud among others. 
-The tested distributions are  **Ubuntu Server 18.04 LTS & 20.04 LTS**
+The tested distribution  **Ubuntu Server 20.04 LTS**
 
-#### ☁️Get a cloud VM
+#### ☁️ Get a cloud VM
 Don't have a VM or a Cloud Account? Don't worry, here you can sign for a free tier in:
   - [Amazon Web Services](https://aws.amazon.com/free/) 
   - [Microsoft Azure](https://azure.microsoft.com/en-us/free/)
   - [Google Cloud](https://cloud.google.com/free)
 
 
-#### 💻Get a local VM
+#### 💻 Get a local VM
 Want to try it locally? Not a problem. Check out [multipass](https://multipass.run/)! a great way for spinning instant Ubuntu VMs in Windows, Mac or Linux computers.
 
 
-### 📏Sizing 
+### 📏 Sizing 
 For the 😎 ultimate experience we recommend a `t3.2xlarge` with 8 Cores, 32 Gigs of RAM and at least 20 Gigs of diskspace.
 
 ### ☎️ Open ports
@@ -45,7 +45,7 @@ chmod +x k8splay-install.sh
 ```
 > You dont need to clone all the repo, only download the **k8splay-install.sh** file. When executing it, it'll take care of the rest and load the resources from github.
 
-Before running the file, you can customize it and control what you want to install.
+Before starting the installation, you can customize it and control what you want to install.
 
 #### 3. Execute the file with sudo rights.
 ```bash
@@ -55,7 +55,7 @@ And that was it! Yes that easy!  Now if you notice is that there is an & in the 
 
 Why run it in the background and where is the output of the program you say? Well, k8splay is actually optimized to be executed for non-interactive shells at the initialization of an instance. This is done programmatically passing the script as [user data](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) while creating dynatrace environments and spinning multiple instances for each student. This is achieved with the [Dynatrace Rest Tenant Automation](https://github.com/sergiohinojosa/Dynatrace-REST-Tenant-Automation) program. Yes, we love ❤️ automation 🤖 and the customization, creation and configuration of environments and instances is done programmatically.
 
-#### 🔍Inspect the script at runtime
+#### 🔍 Inspect the script at runtime
 For inspecting the installation on realtime type:
 ```bash
 less +F /tmp/kiab-install.log
@@ -67,8 +67,8 @@ This will open the installation log and read from the input stream. To exit just
 ### Spin your preconfigured K8s-Play machine with userdata  (manually in aws)
 1. Log in to AWS
 2. Click on "Launch instance"
-3. Select "Ubuntu Server [18|20].04 LTS (HVM) "
-4. Choose your Instance Type "t2.xlarge" or 2xlarge recommended.
+3. Select "Ubuntu Server 20.04 LTS (HVM) "
+4. Choose your Instance Type "t3.xlarge" or 2xlarge recommended.
 5. Select "Next - configure instance details"
 6. In Configure Instance details - Advanced options (below) copy the keptn-in-a-box.sh file. (as string or drop it, doesn't matter). Remember to edit your file if you want to customize your box.
 7. Review it and launch your instance.
