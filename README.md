@@ -26,12 +26,6 @@ Most Likely the machine has been already provisioned for you. Here are some cool
 
 for deploying apps, just go to `cd ~/k8s-play/apps` and enter the folder of the app you want to deploy. Inside the folder you'll find a script for deploying and undeploying. It should be self-explanatory. The shell is normally for helping generate the Ingress rule with a subdomain so the app can be exposed with the help of one IP and a magic domain ([nip.io](https://nip.io))
 
-## Monitoring with Dynatrace
-
-By default your instance will be monitored with the Dynatrace credentials you provisioned (`tenant`, `api_token`, `data_ingest_token`) which are required when you monitor a [Kubernetes Cluster with Dynatrace](https://www.dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring). 
-
-The default deployment mode is [Classic full-stack injection](dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring/deployment-options-k8s#classic) but you can easily swap 🔄 to the [CloudNative full-stack injection](https://www.dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring/deployment-options-k8s#cloud-native), (yeah, how cool is that!?). [Go here to learn more](cluster-setup/resources/dynatrace).
-
 ## Deploy your app with just 1-click 🚀!
 
 The following apps can be found under the [apps](apps) folder. Inside each app there is one bash script for deploying the app and one for removing it. When provisioning the machine this repo will be cloned as `k8s-play`in the home directory like: `~/k8s-play`
@@ -56,7 +50,11 @@ The following apps can be found under the [apps](apps) folder. Inside each app t
 </tr>
 </table>
 
+## Monitoring with Dynatrace
 
+By default your instance will be monitored with the Dynatrace credentials you provisioned (`tenant`, `api_token`, `data_ingest_token`) which are required when you monitor a [Kubernetes Cluster with Dynatrace](https://www.dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring). 
+
+The default deployment mode is [Classic full-stack injection](dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring/deployment-options-k8s#classic) but you can easily swap 🔄 to the [CloudNative full-stack injection](https://www.dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring/deployment-options-k8s#cloud-native), (yeah, how cool is that!?). [Go here to learn more](cluster-setup/resources/dynatrace).
 
 ## Provisioning your own Kubernetes Playground
 
