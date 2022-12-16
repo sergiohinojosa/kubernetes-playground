@@ -50,8 +50,6 @@ TODO Set the installation
 ## Deploy your app with just OneClick 🚀!
 
 The following apps can be found under the [apps](apps) folder. Inside each app there is one bash script for deploying the app and one for removing it. When provisioning the machine this repo will be cloned as `k8s-play`in the home directory like: `~/k8s-play`
-
-
 <table style="table-layout: fixed; width: 100%; text-align: center;" >
 <tr valign="top">
   <td style="width:25%;"><a href="apps/bookinfo" target="_blank">BookInfo<img src="https://istio.io/latest/docs/examples/bookinfo/noistio.svg"/></a></td>
@@ -71,6 +69,8 @@ The following apps can be found under the [apps](apps) folder. Inside each app t
   <td style="width:25%;"></td>
   <td style="width:25%;"></td>
 </tr>
+</table>
+
 
 
 ## Provisioning your own Kubernetes Playground
