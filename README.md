@@ -26,11 +26,6 @@ Most Likely the machine has been provisioned for you. Here are some cool tips an
 
 for deploying apps, just go to `cd ~/k8s-play/apps` and enter the folder of the app you want to deploy. Inside the folder you'll find a script for deploying and undeploying. It should be self-explanatory. The shell is normally for helping generate the Ingress rule with a subdomain so the app can be exposed with the help of one IP and a magic domain ([nip.io](https://nip.io))
 
-## Verify the installation
-By default the installation log can be found under `/tmp/k8splay-install.log`
-Type `less +F /tmp/k8splay-install.log` to read the log, scroll forward, and keep trying to read when the end of file is reached (in case the installation is still running).
-
-
 ## Monitoring with Dynatrace
 
 By default your instance will be monitored with the Dynatrace credentials you provisioned (`tenant`, `api_token`, `data_ingest_token`) which are required when you monitor a [Kubernetes Cluster with Dynatrace](https://www.dynatrace.com/support/help/setup-and-configuration/setup-on-container-platforms/kubernetes/get-started-with-kubernetes-monitoring). 
@@ -72,3 +67,8 @@ How to provision, take from kiab
 
 
 -->
+
+## Verify the installation
+By default the installation log can be found under `/tmp/k8splay-install.log`
+Type `less +F /tmp/k8splay-install.log` to read the log, scroll forward, and keep trying to read when the end of file is reached (in case the installation is still running).
+
