@@ -7,7 +7,7 @@ The default deployment mode is [Classic full-stack injection](dynatrace.com/supp
 
 ## Dynatrace credentials
 
-The Dynatrace credentials will be passed along during the provisioning and are setted in the [k8splay-install.sh](../../k8splay-install.sh) file. You can find the section at the beginning of the file:
+The Dynatrace credentials will be passed along during the provisioning and are setted in the [k8splay-install.sh](../../k8splay-install.sh) file. 
 
 ```
 # ---- Define Dynatrace Environment ----
@@ -16,6 +16,7 @@ TENANT=
 APITOKEN=
 INGESTTOKEN=
 ```
+You can find the above section at the top of the file.
 
 ## 🔐 Dynatrace Token Scopes
 
