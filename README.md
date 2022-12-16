@@ -60,15 +60,17 @@ The following apps can be found under the [apps](apps) folder. Inside each app t
 
 ## Provisioning your own Kubernetes Playground
 
+K8s-Playground is programmed natively for Linux sytems, specially Ubuntu. The Kubernetes Playground can run in any Ubuntu machine, whether is on the cloud, locally or a VM. Thanks to the modularity and versioning of the code, you can be sure that the environment that you create will always work the same so you can match it to a step-by-step tutorial or workshop at any given time.
 
-<!--
+Go to the [Cluster-Setup](cluster-setup) to learn more how to spin an instance manually or via automations.
 
-How to provision, take from kiab
-
-
--->
 
 ## Verify the installation
 By default the installation log can be found under `/tmp/k8splay-install.log`
 Type `less +F /tmp/k8splay-install.log` to read the log, scroll forward, and keep trying to read when the end of file is reached (in case the installation is still running).
 
+If you want to verify that the installation finished without errors. Inspect the log with this command:
+```bash
+cat /tmp/k8splay-install.log | grep -i error
+```
+If there is no output it means that no error was found in the installation log.
