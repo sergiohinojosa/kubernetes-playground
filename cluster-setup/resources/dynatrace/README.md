@@ -18,10 +18,11 @@ INGESTTOKEN=
 ```
 You can find the above section at the top of the file.
 
-## 🔐 Dynatrace Token Scopes
+
+## Dynatrace Token Scopes 
 
 For ease of deployment is recommended you use the Dynatrace deployment UI `Deployment > Start Installation > Kubernetes`
-and you copy/paste:
+and you copy/paste:🔐
 >APITOKEN="Generated Dynatrace Operator token"
 >INGESTTOKEN="Generated Data ingest token"
 
