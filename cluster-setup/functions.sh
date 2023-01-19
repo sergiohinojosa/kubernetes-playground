@@ -9,7 +9,7 @@
 PLAY_RELEASE="main"
 
 #https://cert-manager.io/docs/release-notes/
-CERTMANAGER_VERSION=1.10.0
+CERTMANAGER_VERSION=1.11.0
 #https://istio.io/latest/news/releases/
 ISTIO_VERSION=1.14.5
 # https://github.com/helm/helm/releases

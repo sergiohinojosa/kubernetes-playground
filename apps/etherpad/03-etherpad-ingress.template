@@ -4,6 +4,7 @@ metadata:
   name: etherpad-ingress
   annotations:
     kubernetes.io/ingress.class: public
+    #cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
   - host: etherpad.domain.placeholder
@@ -19,3 +20,4 @@ spec:
   tls:
   - hosts:
     - etherpad.domain.placeholder
+    #secretName: etherpad-tls
