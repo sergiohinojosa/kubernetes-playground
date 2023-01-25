@@ -95,6 +95,7 @@ expose_kubernetes_api=false
 expose_kubernetes_dashboard=false
 patch_kubernetes_dashboard=false
 create_workshop_user=false
+instrument_nginx=false
 
 # ======================================================================
 #             ------- Installation Bundles  --------                   #
@@ -113,6 +114,7 @@ installationBundleK8sPlayStandard() {
   resources_clone=true
   setup_aliases=true
   k9s_install=true
+  instrument_nginx=true
 
   enable_k8dashboard=true
 
@@ -739,6 +741,16 @@ dynatraceDeployOperator() {
       waitForAllPods
     fi
 
+    printInfoSection "Instrumenting NGINX Ingress"
+
+    if [ "$instrument_nginx" = true ]; then
+
+      bashas "cd $K8S_PLAY_DIR/apps/nginx && bash instrument-nginx.sh"
+
+      waitForAllPods
+    fi
+
+
   else
     printInfo "Not deploying the Dynatrace Operator, no credentials found"
   fi
@@ -912,7 +924,7 @@ printInstalltime() {
 
 printFlags() {
   printInfoSection "Function Flags values"
-  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_aliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_deploy_classic,dynatrace_deploy_cloudnative,keptn_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel}; do
+  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_aliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_deploy_classic,dynatrace_deploy_cloudnative,keptn_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel,instrument_nginx}; do
     echo "$i = ${!i}"
   done
 }
