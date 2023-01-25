@@ -5,10 +5,10 @@
 
 echo "Verifying if you have a Dynakube deployed and the monitoring mode..."
 
-if kubectl get dynakubes.dynatrace.com -o yaml | grep -q -i 'items: \[\]'; then
+if kubectl get dynakubes.dynatrace.com -n dynatrace -o yaml | grep -q -i 'items: \[\]'; then
     echo "No Dynakubes are configured, exiting and not modifing the configmap of nginx"
 else 
-    if kubectl get dynakubes.dynatrace.com -o yaml | grep -q cloudNativeFullStack; then
+    if kubectl get dynakubes.dynatrace.com -n dynatrace -o yaml | grep -q cloudNativeFullStack; then
         echo "CloudNative is active, setting the library for it."
         kubectl apply -f ingress-nginx-controller-microk8s-cn.yaml 
     else   
