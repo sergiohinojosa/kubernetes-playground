@@ -11,6 +11,8 @@ else
     if kubectl get dynakubes.dynatrace.com -n dynatrace -o yaml | grep -q cloudNativeFullStack; then
         echo "CloudNative is active, setting the library for it."
         kubectl apply -f ingress-nginx-controller-microk8s-cn.yaml 
+        echo "Recycling the ingress so the CSI can be mounted."
+        kubectl delete pod -n ingress -l name=nginx-ingress-microk8s
     else   
         echo "ClassicFullStack is active, setting the library for it."
         kubectl apply -f ingress-nginx-controller-microk8s-classic.yaml 
