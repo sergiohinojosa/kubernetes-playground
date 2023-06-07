@@ -1,5 +1,5 @@
 #!/bin/bash
-OPERATOR_VERSION="v0.10.0"
+OPERATOR_VERSION="v0.11.2"
 KUBERNETES_YAML="https://github.com/Dynatrace/dynatrace-operator/releases/download/$OPERATOR_VERSION/kubernetes.yaml"
 CSI_YAML="https://github.com/Dynatrace/dynatrace-operator/releases/download/$OPERATOR_VERSION/kubernetes-csi.yaml"
 

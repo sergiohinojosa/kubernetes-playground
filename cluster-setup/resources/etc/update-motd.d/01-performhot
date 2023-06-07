@@ -1,0 +1,40 @@
+#!/bin/sh
+export TERM=xterm;
+
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+LIME_YELLOW=$(tput setaf 190)
+POWDER_BLUE=$(tput setaf 153)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+BRIGHT=$(tput bold)
+NORMAL=$(tput sgr0)
+BLINK=$(tput blink)
+REVERSE=$(tput smso)
+UNDERLINE=$(tput smul)
+
+echo "===================================================================================="
+echo "                 ${BLUE}     Hello Dear Perform Attendee            ${NORMAL}                      "
+echo "                                                                                                  "
+echo "      ${CYAN}       Welcome the HOT Session - Advanced Diagnostics with           ${NORMAL}              "
+echo "${GREEN}"
+echo "      .oyyyyyson+.          sh                               hs                                                         "
+echo "  .:yhhhhhhhhh/ oy.   .:HHHHhd /:      /: .:HHH:.   :mHHHm.  dh//-  .mmmm. -mHHHm:   -HHHH.   .:HHHH:.                  "
+echo "  s.  PPPPPPP nhhh   od/----yd /m:    sd./d+:  \dy       :do dh    .ms          :do dy:      sd/     d+                 "
+echo "  hhh.       ohhhh-  m+     sd  om-  +m- hh     oN. -:mmm:ym dy    -N/    -:mmmm:ym N.       my:mmmdh*                  "
+echo "  hhh        shhhh:  m+     sd   sd./m/  hh     oN-hh:    ym dy    -N/   .ds    -ms N.       my                         "
+echo "  hy ::::::: yhhho   od/---:dh    hdm+   hh     oN-dh:    hh yd:-- -N/   .mo    :mo dy:----  sd:                        "
+echo "  / yhhhhhhh-hh+.     .:HHHH:     -Ns    hh     oN  :HHHHH:   :HHH:-N/    .HHHHHH:   -HHHHH.   *HHHH*                   "
+echo "   .osyyhhhh+/*                   yy                                                                                    "
+echo "${NORMAL}                                                                                                               "
+echo "                                                                                    "
+echo "  ${YELLOW}   Spend more time innovating and less time configuring!!!          ${NORMAL}             "
+echo
+echo
+echo "------------------------------------------------------------------------------------${BLUE}"
+/usr/bin/bash /home/devlove/rest_test.sh
+echo "${NORMAL}------------------------------------------------------------------------------------"
