@@ -6,7 +6,7 @@ metadata:
     kubernetes.io/ingress.class: public
     # We allow HTTP and HTTPS
     nginx.ingress.kubernetes.io/ssl-redirect: "false"
-    # Instructs the controller to send TLS connections directly 
+    # Instructs the controller to send TLS connections directly
     #to the backend instead of letting NGINX decrypt the communication
     nginx.ingress.kubernetes.io/ssl-passthrough: "true"
     # In some scenarios the exposed URL in the backend service differs
@@ -14,7 +14,7 @@ metadata:
     # rewrite any request will return 404
     nginx.ingress.kubernetes.io/rewrite-target: /
     # The name of our ClusterIssuer. We use ACME with
-    # HTTP solver 
+    # HTTP solver
     #cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
@@ -25,7 +25,7 @@ spec:
         path: /
         backend:
           service:
-            name: dynabank-www
+            name: ui
             port:
               number: 80
   tls:
