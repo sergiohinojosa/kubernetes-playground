@@ -10,4 +10,4 @@ sed 's~domain.placeholder~'"$DOMAIN"'~' manifests/ingress.template > manifests/i
 kubectl -n dbic apply -f manifests/
 
 echo "dynabank is available here:"
-kubectl get ing -n easytravel
+kubectl get ing -n dbic
