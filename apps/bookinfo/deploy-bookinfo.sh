@@ -20,3 +20,4 @@ kubectl -n bookinfo apply -f manifests/
 BOOKDOMAIN=$(kubectl get ing -n bookinfo -o=jsonpath={.items[0].spec.rules[0].host})
 
 printf "\n\n*****\nThe Book application is now available at http://$BOOKDOMAIN/productpage\n*******\n\n"
+echo "bookinfo is available here: http://$BOOKDOMAIN/productpage"
