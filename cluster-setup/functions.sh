@@ -721,6 +721,11 @@ dynatraceDeployOperator() {
   source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials $@
   # new lines, needed for workflow-k8s-playground, cluster in dt needs to have the name k8s-playground-{requestuser} to be able to spin up multiple instances per tenant
 
+  if [ -n "${TriggerUser}" ]; then
+     echo "set triggeruser"
+     bashas "export TriggerUser=$TriggerUser"
+  else
+
   if [ -n "${DT_TENANT}" ]; then
     printInfoSection "Deploying Dynatrace Operator"
     # Deploy Operator
