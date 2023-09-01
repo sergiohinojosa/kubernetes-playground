@@ -24,7 +24,7 @@ deployOperator() {
     # Save Dynatrace Secret
     kubectl -n dynatrace create secret generic k8s-playground --from-literal="apiToken=$DT_API_TOKEN" --from-literal="dataIngestToken=$DT_INGEST_TOKEN"
     
-    if [ -n "$1" ]; then
+    if [ -n "${TriggerUser}" ]; then
         echo "Set Operator for workflow Playground"
         dtcn="k8s-playground-"$TriggerUser""
         sed -e 's~apiUrl: https://ENVIRONMENTID.live.dynatrace.com/api~apiUrl: '"$DT_API_URL"'~; s~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-classic.yaml >gen/dynakube-classic.yaml
