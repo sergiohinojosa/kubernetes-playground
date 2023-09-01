@@ -720,14 +720,6 @@ dynatraceDeployOperator() {
   # Save & Read credentials as root
   source $K8S_PLAY_DIR/cluster-setup/resources/dynatrace/credentials.sh && saveReadCredentials $@
   # new lines, needed for workflow-k8s-playground, cluster in dt needs to have the name k8s-playground-{requestuser} to be able to spin up multiple instances per tenant
-  if [ -n "${TriggerUser}" ]; then
-    cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace
-    dtcn="k8s-playground-"${TriggerUser}""
-    sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-classic.yaml > dynakube-classicx.yaml
-    sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-cloudnative.yaml > dynakube-cloudnativex.yaml
-    mv -i dynakube-classicx.yaml dynakube-classic.yaml
-    mv -i dynakube-cloudnativex.yaml dynakube-cloudnative.yaml
-  fi
 
   if [ -n "${DT_TENANT}" ]; then
     printInfoSection "Deploying Dynatrace Operator"
