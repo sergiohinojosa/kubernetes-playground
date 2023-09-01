@@ -46,7 +46,7 @@ fi
 echo "running sudo commands as $USER"
 
 # Wrapper for runnig commands for the real owner and not as root
-alias bashas="sudo -H -u ${USER} bash -c"
+alias bashas="sudo -E -H -u ${USER} bash -c"
 # Expand aliases for non-interactive shell
 shopt -s expand_aliases
 
@@ -726,7 +726,7 @@ dynatraceDeployOperator() {
     printInfoSection "Deploying Dynatrace Operator"
     # Deploy Operator
     if [ -n "${TriggerUser}" ]; then
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployOperator \"$TriggerUser\""
+    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployOperator" 
     else
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployOperator"
     fi
