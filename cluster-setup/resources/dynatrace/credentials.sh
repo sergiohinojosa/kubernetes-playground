@@ -31,6 +31,7 @@ saveReadCredentials() {
     export DT_INGEST_TOKEN=$DT_INGEST_TOKEN
     if [ -n "${TriggerUser}" ]; then
         echo "Set Operator for workflow Playground"
+        echo "Workflow Playground for $TriggerUser"
         export TriggerUser=$TriggerUser
     fi   
 
