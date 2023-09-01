@@ -725,11 +725,8 @@ dynatraceDeployOperator() {
   if [ -n "${DT_TENANT}" ]; then
     printInfoSection "Deploying Dynatrace Operator"
     # Deploy Operator
-    if [ -n "${TriggerUser}" ]; then
-    bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployOperator" 
-    else
+
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployOperator"
-    fi
     waitForAllPods
 
     if [ "$dynatrace_deploy_classic" = true ]; then
