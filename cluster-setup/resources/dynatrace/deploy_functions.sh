@@ -27,16 +27,15 @@ deployOperator() {
     if [ -n "${TriggerUser}" ]; then
         echo "Set Operator for workflow Playground"
         dtcn="k8s-playground-"$TriggerUser""
-        sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-classic.yaml > dynakube-classicx.yaml
-        sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-cloudnative.yaml > dynakube-cloudnativex.yaml
-        mv -i dynakube-classicx.yaml dynakube-classic.yaml
-        mv -i dynakube-cloudnativex.yaml dynakube-cloudnative.yaml
-    fi    
-    # Replace URL and name for CloudNative and Classic FS Deployment
-    sed -e 's~apiUrl: https://ENVIRONMENTID.live.dynatrace.com/api~apiUrl: '"$DT_API_URL"'~' dynakube-classic.yaml >gen/dynakube-classic.yaml
+        sed -e 's~apiUrl: https://ENVIRONMENTID.live.dynatrace.com/api~apiUrl: '"$DT_API_URL"'~; s~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-classic.yaml >gen/dynakube-classic.yaml
+        sed -e 's~apiUrl: https://ENVIRONMENTID.live.dynatrace.com/api~apiUrl: '"$DT_API_URL"'~; s~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-cloudnative.yaml >gen/dynakube-cloudnative.yaml
 
-    sed -e 's~apiUrl: https://ENVIRONMENTID.live.dynatrace.com/api~apiUrl: '"$DT_API_URL"'~' dynakube-cloudnative.yaml >gen/dynakube-cloudnative.yaml
-
+    else
+        # Replace URL and name for CloudNative and Classic FS Deployment
+        sed -e 's~apiUrl: https://ENVIRONMENTID.live.dynatrace.com/api~apiUrl: '"$DT_API_URL"'~' dynakube-classic.yaml >gen/dynakube-classic.yaml
+    
+        sed -e 's~apiUrl: https://ENVIRONMENTID.live.dynatrace.com/api~apiUrl: '"$DT_API_URL"'~' dynakube-cloudnative.yaml >gen/dynakube-cloudnative.yaml
+    fi 
     kubectl -n dynatrace wait pod --for=condition=ready --selector=app.kubernetes.io/name=dynatrace-operator,app.kubernetes.io/component=webhook --timeout=300s
 }
 
