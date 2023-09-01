@@ -723,8 +723,8 @@ dynatraceDeployOperator() {
   if [ -n "${TriggerUser}" ]; then
     cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace
     dtcn="k8s-playground-"${TriggerUser}""
-    sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-classic.yaml >dynakube-classicx.yaml
-    sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-cloudnative.yaml >/dynakube-cloudnativex.yaml
+    sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-classic.yaml > dynakube-classicx.yaml
+    sed -e 's~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "k8s-playground"~feature.dynatrace.com/automatic-kubernetes-api-monitoring-cluster-name: "'"$dtcn"'"~' dynakube-cloudnative.yaml > dynakube-cloudnativex.yaml
     mv -i dynakube-classicx.yaml dynakube-classic.yaml
     mv -i dynakube-cloudnativex.yaml dynakube-cloudnative.yaml
   fi
