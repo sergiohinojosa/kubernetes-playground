@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: easytravel-www
+  labels:
+    app: easytravel-k8s
+    type: www-service
+spec:
+  ports:
+    - port: 80
+      protocol: TCP
+      targetPort: 80
+  selector:
+    app: easytravel-k8s
+    type: www-pod
