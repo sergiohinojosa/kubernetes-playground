@@ -37,7 +37,7 @@ KEPTN_EXAMPLES_DIR="/home/$USER/examples"
 DEVLOVE_ET_DIR="/home/$USER/devlove-easytravel-pipelines"
 
 # - The user to run the commands from. Will be overwritten when executing this shell with sudo, this is just needed when spinning machines programatically and running the script with root without an interactive shell
-HOSTNAME="k8s-playground"
+#HOSTNAME="k8s-playground"
 
 # Comfortable function for setting the sudo user.
 if [ -n "${SUDO_USER}" ]; then
