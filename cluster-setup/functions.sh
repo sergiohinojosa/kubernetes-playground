@@ -727,7 +727,7 @@ dynatraceDeployOperator() {
     # Deploy Operator
 
     bashas "cd $K8S_PLAY_DIR/cluster-setup/resources/dynatrace && source deploy_functions.sh && deployOperator"
-    waitForAllPods
+    waitForAllPods dynatrace
 
     if [ "$dynatrace_deploy_classic" = true ]; then
 
