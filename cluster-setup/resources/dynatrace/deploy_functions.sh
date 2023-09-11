@@ -42,8 +42,9 @@ deployOperator() {
     # Create Dynakube for CloudNative 
     sed -e 's~MONITORINGMODE:~cloudNativeFullStack:~' gen/dynakube-skel.yaml >gen/dynakube-cloudnative.yaml
     
-    # functions.sh needs to be loaded, let's wait for the creation of the webhook.
+    # Wait on the creation of the webhook.
     waitForAllPods dynatrace
+    
     # then we poll the status otherwise is the ressource not met.
     kubectl -n dynatrace wait pod --for=condition=ready --selector=app.kubernetes.io/name=dynatrace-operator,app.kubernetes.io/component=webhook --timeout=300s
     
@@ -76,6 +77,36 @@ uninstallDynatrace() {
     kubectl delete -f $OPERATOR_YAML
 
     kubectl delete namespace dynatrace
+}
+
+waitForAllPods() {
+  # Function to filter by Namespace, default is ALL
+  if [[ $# -eq 1 ]]; then
+    namespace_filter="-n $1"
+  else
+    namespace_filter="--all-namespaces"
+  fi
+  RETRY=0
+  RETRY_MAX=24
+  # Get all pods, count and invert the search for not running nor completed. Status is for deleting the last line of the output
+  CMD="bashas \"kubectl get pods $namespace_filter 2>&1 | grep -c -v -E '(Running|Completed|Terminating|STATUS)'\""
+  printInfo "Checking and wait for all pods in \"$namespace_filter\" to run."
+  while [[ $RETRY -lt $RETRY_MAX ]]; do
+    pods_not_ok=$(eval "$CMD")
+    if [[ "$pods_not_ok" == '0' ]]; then
+      printInfo "All pods are running."
+      break
+    fi
+    RETRY=$(($RETRY + 1))
+    printWarn "Retry: ${RETRY}/${RETRY_MAX} - Wait 10s for $pods_not_ok PoDs to finish or be in state Running ..."
+    sleep 10
+  done
+
+  if [[ $RETRY == $RETRY_MAX ]]; then
+    printError "Following pods are not still not running. Please check their events. Exiting installation..."
+    bashas "kubectl get pods --field-selector=status.phase!=Running -A"
+    exit 1
+  fi
 }
 
 echo "the functions deployOperator deployClassic deployCloudNative undeployDynakubes uninstallDynatrace have been loaded to the current shell"
