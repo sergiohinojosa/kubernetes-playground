@@ -41,8 +41,12 @@ deployOperator() {
     sed -e 's~MONITORINGMODE:~classicFullStack:~' gen/dynakube-skel.yaml >gen/dynakube-classic.yaml
     # Create Dynakube for CloudNative 
     sed -e 's~MONITORINGMODE:~cloudNativeFullStack:~' gen/dynakube-skel.yaml >gen/dynakube-cloudnative.yaml
+    
+    echo "weird workaround for the creation of the webhook, sleep 5"
+    sleep 5
 
     kubectl -n dynatrace wait pod --for=condition=ready --selector=app.kubernetes.io/name=dynatrace-operator,app.kubernetes.io/component=webhook --timeout=300s
+    
 }
 
 deployClassic() {
