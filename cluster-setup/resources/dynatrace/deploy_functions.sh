@@ -3,6 +3,7 @@
 # Operator Version
 OPERATOR_VERSION="v0.13.0"
 OPERATOR_YAML="https://github.com/Dynatrace/dynatrace-operator/releases/download/$OPERATOR_VERSION/kubernetes.yaml"
+CSI_YAML="https://github.com/Dynatrace/dynatrace-operator/releases/download/$OPERATOR_VERSION/kubernetes-csi.yaml"
 
 deployOperator() {
 
@@ -19,6 +20,11 @@ deployOperator() {
     kubectl create namespace dynatrace
 
     kubectl apply -f $OPERATOR_YAML
+
+    # Download the CSI Driver impl
+    curl -o gen/csi.yaml -L $CSI_YAML
+    # Changing the destination of the kubelet for Microk8s to deploy the CSI driver succesfully
+    sed -e 's~/var/lib/kubelet/~/var/snap/microk8s/common/var/lib/kubelet/~' gen/csi.yaml >gen/microk8s-csi.yaml
 
     # Save Dynatrace Secret
     kubectl -n dynatrace create secret generic k8s-playground --from-literal="apiToken=$DT_API_TOKEN" --from-literal="dataIngestToken=$DT_INGEST_TOKEN"
@@ -54,6 +60,7 @@ deployClassic() {
 
 deployCloudNative() {
 
+    kubectl -n dynatrace apply -f gen/microk8s-csi.yaml
     # Check if the Webhook has been created and is ready
     kubectl -n dynatrace wait pod --for=condition=ready --selector=app.kubernetes.io/name=dynatrace-operator,app.kubernetes.io/component=webhook --timeout=300s
 
@@ -76,6 +83,8 @@ uninstallDynatrace() {
 
     echo "Uninstalling Dynatrace"
     kubectl delete -f $OPERATOR_YAML
+
+    kubectl -n dynatrace delete -f gen/microk8s-csi.yaml 2>/dev/null
 
     kubectl delete namespace dynatrace
 }
