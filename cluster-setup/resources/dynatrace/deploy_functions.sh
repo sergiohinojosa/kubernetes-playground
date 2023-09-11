@@ -14,7 +14,7 @@ deployOperator() {
     CLUSTERNAME=$(hostname)
 
     # Install the operator
-    echo "Deploying the Dynatrace Operator"
+    echo "Deploying the Dynatrace Operator Version $OPERATOR_VERSION"
 
     kubectl create namespace dynatrace
 
