@@ -42,9 +42,9 @@ deployOperator() {
     # Create Dynakube for CloudNative 
     sed -e 's~MONITORINGMODE:~cloudNativeFullStack:~' gen/dynakube-skel.yaml >gen/dynakube-cloudnative.yaml
     
-    echo "weird workaround for the creation of the webhook, sleep 5"
-    sleep 5
-
+    # functions.sh needs to be loaded, let's wait for the creation of the webhook.
+    waitForAllPods dynatrace
+    # then we poll the status otherwise is the ressource not met.
     kubectl -n dynatrace wait pod --for=condition=ready --selector=app.kubernetes.io/name=dynatrace-operator,app.kubernetes.io/component=webhook --timeout=300s
     
 }
