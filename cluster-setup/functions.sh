@@ -103,6 +103,19 @@ instrument_nginx=false
 #  activated upon installation.                                        #
 # ======================================================================
 
+
+installationBundleWorkflowPlayground(){
+  selected_bundle="installationBundleWorkflowPlayground"
+  
+  # We select the same bundle as K8sPlay
+  installationBundleK8sPlayStandard
+  
+  # We set the Hostname so it matches @danybraf conventions
+  HOSTNAME="k8s-playground-$NEWUSER"
+
+
+}
+
 installationBundleK8sPlayStandard() {
   selected_bundle="installationBundleK8sPlayStandard"
 

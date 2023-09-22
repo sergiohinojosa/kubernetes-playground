@@ -14,6 +14,7 @@ else
     else   
         echo "ClassicFullStack is active, setting the library for it."
         kubectl apply -f ingress-nginx-controller-microk8s-classic.yaml 
+        #TODO FIX RELOAD WHEN CLASSIC, DO CURL then Recycle POD
     fi
     echo "Recycling the ingress pod so the library can be mounted."
     kubectl delete pod -n ingress -l name=nginx-ingress-microk8s
