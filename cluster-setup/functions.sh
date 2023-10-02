@@ -39,6 +39,10 @@ DEVLOVE_ET_DIR="/home/$USER/devlove-easytravel-pipelines"
 # - The user to run the commands from. Will be overwritten when executing this shell with sudo, this is just needed when spinning machines programatically and running the script with root without an interactive shell
 HOSTNAME="k8s-playground"
 
+# Magic Domain - default magic domain. Can be overridden for e.g. .sslip.io 
+# It needs to start with . 
+MAGICDOMAIN=".nip.io"
+
 # Comfortable function for setting the sudo user.
 if [ -n "${SUDO_USER}" ]; then
   USER=$SUDO_USER
@@ -478,7 +482,7 @@ setupMagicDomainPublicIp() {
     printInfo "No DOMAIN is defined, converting the public IP in a magic nip.io domain"
     # https://unix.stackexchange.com/a/81699/37512
     PUBLIC_IP_AS_DOM=$(dig @resolver4.opendns.com myip.opendns.com +short -4 | sed 's~\.~-~g')
-    export DOMAIN="${PUBLIC_IP_AS_DOM}.nip.io"
+    export DOMAIN="${PUBLIC_IP_AS_DOM}${MAGICDOMAIN}"
     printInfo "Magic Domain: $DOMAIN"
   fi
   # Now we save the DOMAIN in a ConfigMap
