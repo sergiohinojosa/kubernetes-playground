@@ -4,6 +4,7 @@ metadata:
   name: hipstershop-ingress
   annotations:
     kubernetes.io/ingress.class: public
+    #cert-manager.io/cluster-issuer: "letsencrypt"
 spec:
   rules:
   - host: hipstershop.domain.placeholder
@@ -19,3 +20,4 @@ spec:
   tls:
   - hosts:
     - hipstershop.domain.placeholder
+    #secretName: hipstershop-tls
