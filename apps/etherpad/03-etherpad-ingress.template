@@ -5,6 +5,9 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: public
     #cert-manager.io/cluster-issuer: "letsencrypt"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
   rules:
   - host: etherpad.domain.placeholder
