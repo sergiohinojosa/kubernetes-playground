@@ -1,8 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  labels:
-    app: etherpad
   name: etherpad
 spec:
   replicas: 1
@@ -15,13 +13,16 @@ spec:
         app: etherpad
     spec:
       containers:
-        - image: etherpad/etherpad
+      - image: etherpad/etherpad:1.7.5
+        name: etherpad
+        ports:
+        - containerPort: 9001
           name: etherpad
-          ports:
-            - containerPort: 9001
-          command:
-            - "docker-entrypoint.sh"
-          args:
-            - "node"
-            - "node_modules/ep_etherpad-lite/node/server.js"
-          resources: {}
+        volumeMounts:
+        - mountPath: /opt/etherpad/settings.json
+          name: config
+          subPath: settings.json
+      volumes:
+      - configMap:
+          name: etherpad
+        name: config
