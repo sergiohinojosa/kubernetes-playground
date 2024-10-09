@@ -12,3 +12,10 @@
 **sshfs**
 # No DS Store files
 .DS_Store
+
+# No tmp folders
+**tmp**
+**/tmp/**
+
+# No RTA python
+**/rta/**

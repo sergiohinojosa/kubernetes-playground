@@ -393,6 +393,7 @@ setMotd() {
   bashas "sudo chmod +x /etc/update-motd.d/01-custom"
 }
 
+# shellcheck disable=SC2120
 dynatraceEvalReadSaveCredentials() {
   printInfoSection "Dynatrace evaluating and reading/saving Credentials"
   if [ -n "${TENANT}" ]; then
@@ -730,6 +731,7 @@ gitMigrate() {
   fi
 }
 
+# shellcheck disable=SC2120
 dynatraceDeployOperator() {
 
   # posssibility to load functions.sh and call dynatraceDeployOperator A B C to save credentials and override
