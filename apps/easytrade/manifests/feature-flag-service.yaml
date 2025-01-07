@@ -1,26 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: accountservice
+  name: feature-flag-service
 spec:
   selector:
     matchLabels:
-      app: accountservice
+      app: feature-flag-service
   template:
     metadata:
       labels:
-        app: accountservice
+        app: feature-flag-service
     spec:
       containers:
-        - name: accountservice
-          image: europe-docker.pkg.dev/dynatrace-demoability/docker/easytrade/accountservice:3c6307b
+        - name: feature-flag-service
+          image: europe-docker.pkg.dev/dynatrace-demoability/docker/easytrade/feature-flag-service:3c6307b
           ports:
             - containerPort: 8080
-          env:
-            - name: MANAGER_HOSTANDPORT
-              value: "manager:8080"
-            - name: PROXY_PREFIX
-              value: "accountservice"
+          env: []
           resources:
             requests:
               cpu: 30m
@@ -31,12 +27,12 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: accountservice
+  name: feature-flag-service
 spec:
   type: ClusterIP
   selector:
-    app: accountservice
+    app: feature-flag-service
   ports:
-    - name: http
+    - name: feature-flag-service
       port: 8080
       targetPort: 8080

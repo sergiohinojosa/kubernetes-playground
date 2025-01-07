@@ -13,11 +13,16 @@ spec:
     spec:
       containers:
         - name: contentcreator
-          image: gcr.io/dynatrace-demoability/easytrade/contentcreator:f505fb9
+          image: europe-docker.pkg.dev/dynatrace-demoability/docker/easytrade/contentcreator:3c6307b
           env:
             - name: MSSQL_CONNECTIONSTRING
-              value: "jdbc:sqlserver://db:1433;database=TradeManagement;user=sa;password=yourStrong(!)Password;encrypt=false;trustServerCertificate=false;loginTimeout=30;"
+              valueFrom:
+                configMapKeyRef:
+                  name: connection-strings
+                  key: JAVA_CONNECTION_STRING
           resources:
             requests:
-              cpu: 150m
-              memory: 200Mi
+              cpu: 10m
+              memory: 300Mi
+            limits:
+              memory: 300Mi
