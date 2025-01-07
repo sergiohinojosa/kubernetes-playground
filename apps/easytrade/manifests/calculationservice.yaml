@@ -13,8 +13,14 @@ spec:
     spec:
       containers:
         - name: calculationservice
-          image: gcr.io/dynatrace-demoability/easytrade/calculationservice:f505fb9
+          image: europe-docker.pkg.dev/dynatrace-demoability/docker/easytrade/calculationservice:3c6307b
+          env: []
+          envFrom:
+            - configMapRef:
+                name: rabbitmq-vars
           resources:
             requests:
               cpu: 10m
-              memory: 10Mi
+              memory: 25Mi
+            limits:
+              memory: 25Mi

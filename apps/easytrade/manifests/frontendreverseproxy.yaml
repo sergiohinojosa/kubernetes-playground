@@ -13,27 +13,30 @@ spec:
     spec:
       containers:
         - name: frontendreverseproxy
-          image: gcr.io/dynatrace-demoability/easytrade/frontendreverseproxy:f505fb9
+          image: europe-docker.pkg.dev/dynatrace-demoability/docker/easytrade/frontendreverseproxy:3c6307b
           ports:
             - containerPort: 80
-            - containerPort: 8000
+          env: []
           resources:
             requests:
               cpu: 50m
-              memory: 50Mi
+              memory: 75Mi
+            limits:
+              memory: 75Mi
 ---
 apiVersion: v1
 kind: Service
 metadata:
   name: frontendreverseproxy-easytrade
+  # Uncomment the annotations block to allow the service
+  # to be exposed publicly if deployed on EKS
+  # annotations:
+  #   service.beta.kubernetes.io/aws-load-balancer-scheme: internet-facing
 spec:
   type: LoadBalancer
   selector:
     app: frontendreverseproxy
   ports:
-    - name: easytrade-frontend
+    - name: http
       port: 80
       targetPort: 80
-    - name: flagsmith-frontend
-      port: 8000
-      targetPort: 8000

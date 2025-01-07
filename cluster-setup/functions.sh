@@ -24,7 +24,7 @@ KEPTN_EXAMPLES_BRANCH="0.14.0"
 TEASER_IMAGE="shinojosa/k8splaywebshell:v1.1"
 # https://github.com/ubuntu/microk8s/releases
 # snap info microk8s
-MICROK8S_CHANNEL="1.24/stable"
+MICROK8S_CHANNEL="1.32/stable"
 K8S_PLAY_REPO="https://github.com/sergiohinojosa/kubernetes-playground.git"
 DEVLOVE_ET_REPO="https://github.com/dynatrace-perfclinics/devlove-easytravel-pipelines.git"
 
@@ -466,6 +466,7 @@ setupAliases() {
       alias gith='git hist'
       alias gitp='git push'
       alias gits='git status'
+      alias gith='git log --graph --pretty="%C(yellow)[%h] %C(reset)%s by %C(green)%an - %C(cyan)%ad %C(auto)%d" --decorate --all --date=human'
       alias vaml='vi -c \"set syntax:yaml\" -' 
       alias vson='vi -c \"set syntax:json\" -' 
       alias pg='ps -aux | grep' " >/root/.bash_aliases
