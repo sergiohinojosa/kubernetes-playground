@@ -466,7 +466,7 @@ setupAliases() {
       alias gith='git hist'
       alias gitp='git push'
       alias gits='git status'
-      alias gith='git log --graph --pretty="%C(yellow)[%h] %C(reset)%s by %C(green)%an - %C(cyan)%ad %C(auto)%d" --decorate --all --date=human'
+      alias gith='git log --graph --pretty=\"%C(yellow)[%h] %C(reset)%s by %C(green)%an - %C(cyan)%ad %C(auto)%d\" --decorate --all --date=human'
       alias vaml='vi -c \"set syntax:yaml\" -' 
       alias vson='vi -c \"set syntax:json\" -' 
       alias pg='ps -aux | grep' " >/root/.bash_aliases
