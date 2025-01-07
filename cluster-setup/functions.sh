@@ -463,7 +463,6 @@ setupAliases() {
       alias h='history' 
       alias gita='git add -A'
       alias gitc='git commit -s -m'
-      alias gith='git hist'
       alias gitp='git push'
       alias gits='git status'
       alias gith='git log --graph --pretty=\"%C(yellow)[%h] %C(reset)%s by %C(green)%an - %C(cyan)%ad %C(auto)%d\" --decorate --all --date=human'
