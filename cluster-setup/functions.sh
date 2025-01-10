@@ -6,7 +6,7 @@
 # ==================================================
 #      ----- Components Versions -----             #
 # ==================================================
-PLAY_RELEASE="wf-playground"
+PLAY_RELEASE="wf-playgroundtest"
 
 #https://cert-manager.io/docs/release-notes/
 CERTMANAGER_VERSION=1.11.0
