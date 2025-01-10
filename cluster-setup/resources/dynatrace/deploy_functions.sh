@@ -1,7 +1,7 @@
 #!/bin/bash
 #TODO Add the versioning in functions.sh
 # Operator Version
-OPERATOR_VERSION="v1.4.0"
+OPERATOR_VERSION="v1.3.2"
 OPERATOR_YAML="https://github.com/Dynatrace/dynatrace-operator/releases/download/$OPERATOR_VERSION/kubernetes.yaml"
 CSI_YAML="https://github.com/Dynatrace/dynatrace-operator/releases/download/$OPERATOR_VERSION/kubernetes-csi.yaml"
 
