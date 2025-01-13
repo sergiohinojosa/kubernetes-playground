@@ -120,6 +120,24 @@ installationBundleWorkflowPlayground(){
 
 }
 
+installationBundleK8sBasic() {
+  selected_bundle="installationBundleK8sBasic"
+
+  update_ubuntu=true
+  docker_install=true
+  microk8s_install=true
+  helm_microk8s_alias=true
+  resources_clone=true
+  setup_aliases=true
+  k9s_install=true
+  expose_kubernetes_api=true
+
+  # No Dynatrace deployment options.
+  dynatrace_deploy_classic=false
+  dynatrace_deploy_cloudnative=false
+}
+
+
 installationBundleK8sPlayStandard() {
   selected_bundle="installationBundleK8sPlayStandard"
 
@@ -584,6 +602,17 @@ helmInstall() {
   fi
 }
 
+helmMicrok8sAlias() {
+  if [ "$helm_microk8s_alias" = true ]; then
+    printInfoSection "Setting up an alias for micrkok8s"
+    printInfo "Add alias to Helm (Helm binaries are already installed in microk8s)"
+    snap alias microk8s.helm helm
+  fi
+}
+
+
+
+
 certmanagerInstall() {
   if [ "$certmanager_install" = true ]; then
     printInfoSection "Install CertManager $CERTMANAGER_VERSION with Email Account ($CERTMANAGER_EMAIL)"
@@ -875,6 +904,7 @@ devloveEasytravel() {
   fi
 }
 
+# TODO: Verify PWD Authentication with Ubuntu 24.04
 createWorkshopUser() {
   if [ "$create_workshop_user" = true ]; then
     printInfoSection "Creating Workshop User from user($USER) into($NEWUSER)"
@@ -946,7 +976,7 @@ printInstalltime() {
 
 printFlags() {
   printInfoSection "Function Flags values"
-  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,setup_aliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_deploy_classic,dynatrace_deploy_cloudnative,keptn_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel,instrument_nginx,TriggerUser}; do
+  for i in {selected_bundle,verbose_mode,update_ubuntu,docker_install,k9s_install,webshell_install,microk8s_install,helm_microk8s_alias,setup_aliases,enable_k8dashboard,enable_registry,istio_install,helm_install,git_deploy,git_migrate,certmanager_install,certmanager_enable,keptn_install,keptn_install_qualitygates,keptn_examples_clone,resources_clone,dynatrace_deploy_classic,dynatrace_deploy_cloudnative,keptn_configure_monitoring,jenkins_deploy,keptn_bridge_disable_login,deploy_homepage,keptndemo_cartsload,keptndemo_unleash,keptndemo_unleash_configure,keptndemo_cartsonboard,expose_kubernetes_api,expose_kubernetes_dashboard,patch_kubernetes_dashboard,create_workshop_user,devlove_easytravel,instrument_nginx,TriggerUser}; do
     echo "$i = ${!i}"
   done
 }

@@ -106,7 +106,7 @@ source $FUNCTIONS_FILE
 # ==================================================
 # ---- Installation Bundle to enable        -----  #
 # ==================================================
-installationBundleK8sPlayStandard
+installationBundleK8sBasic
 
 # ==================================================
 # ---- Enable or Disable specific functions -----  #
