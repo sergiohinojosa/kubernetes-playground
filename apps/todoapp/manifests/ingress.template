@@ -25,7 +25,7 @@ spec:
         path: /
         backend:
           service:
-            name: simplenode
+            name: todoapp
             port:
               number: 8080
   tls:
